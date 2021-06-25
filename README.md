@@ -19,7 +19,8 @@ coronacheck-tools is a python package and cli tool that allows you to dump the c
 
 ## Docker
 ```bash
-# Running the tool through docker is quite easy. Just docker run sikerdebaard/coronacheck-tools:1.0.0
+# Running the tool through docker is quite easy.
+# Just docker run sikerdebaard/coronacheck-tools:latest
 > docker run --rm --user `id -u` -v /path/to/your/data:/data sikerdebaard/coronacheck-tools:latest dump json /data/qrcode.jpg /data
 ```
 #
