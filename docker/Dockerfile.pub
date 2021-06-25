@@ -1,0 +1,9 @@
+ARG PYTHON
+FROM python:${PYTHON}
+
+RUN apt-get update && apt-get install ffmpeg libsm6 libxext6 zbar-tools  -y
+
+ARG VERSION
+RUN pip install coronacheck-tools==${VERSION}
+
+ENTRYPOINT ["coronacheck-tools"]
