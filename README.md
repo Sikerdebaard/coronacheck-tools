@@ -27,7 +27,7 @@ coronacheck-tools is a python package and cli tool that allows you to dump the c
 
 # Usage
 
-The tool currently has two command built-in. Dump is used for converting an image of a qr code to either raw, ASN.1 or json and the asn1spec command is used to print the ASN.1 specification file.
+The tool currently has two command built-in. Dump is used for converting an image of a qr code to either raw, ASN.1 or json and the asn1spec command is used to print the ASN.1 specification file. The tool support most popular image formats as input.
 
 ```bash
 > coronacheck-tools dump --help
