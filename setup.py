@@ -15,7 +15,7 @@ setup(
     long_description_content_type="text/markdown",
     author='Thomas Phil',
     author_email='thomas@tphil.nl',
-    url='https://github.com/Sikerdebaard/coronacheck-dump',
+    url='https://github.com/Sikerdebaard/coronacheck-tools',
     python_requires=">=3.6",
     packages=find_packages(),  # same as name
     install_requires=[

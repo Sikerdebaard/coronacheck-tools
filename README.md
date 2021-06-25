@@ -1,7 +1,7 @@
 # This is an unofficial tool that is in no way affiliated with CoronaCheck.nl or the Ministry of VWS. You have been warned!
 
 # coronacheck-tools
-coronacheck-tools is a python package and cli tool that allows you to dump the contents of the qr code generated at https://coronacheck.nl either through the app or the website or on paper. This allows others to get some insight into the data stored in these QR Codes.
+coronacheck-tools is a python package and cli tool that allows you to dump the contents of the qr code generated at https://coronacheck.nl either through the app or the website. This is useful to get some insight into the data stored in these QR Codes.
 
 # Installation
 
@@ -44,8 +44,6 @@ AVAILABLE COMMANDS
 # The tool supports most popular image formats, e.g. png, jpg etc.
 > coronacheck-tools dump json /path/to/qr-code.jpg /path/to/output/directory
 ```
-
-## Docker
 
 # License
 
