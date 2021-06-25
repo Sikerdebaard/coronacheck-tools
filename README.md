@@ -6,49 +6,47 @@ coronacheck-tools is a python package and cli tool that allows you to dump the c
 # Installation
 
 
-# Interpolation
-Interpolation of the mask between slices is currently unsupported. Send us an algorithm or a pull requests and we'll happly add it.
+## Pip
 
-# Input file format
-The DICOM and RT-Struct inputs need to be unzipped in a directory. Currently this is the only way to read the input files.
+```bash
+# First install the package through pip
+> pip install coronacheck-tools
 
-# CLI Tool
+# Let's check the tools help file
+> coronacheck-tools --help
+
+This is an unofficial tool that is in no way affiliated with CoronaCheck.nl or the Ministry of VWS
+Coronacheck Tools version 1.0.0
+
+USAGE
+  coronacheck-tools [-h] [-q] [-v [<...>]] [-V] [--ansi] [--no-ansi] [-n] <command> [<arg1>] ... [<argN>]
+
+ARGUMENTS
+  <command>              The command to execute
+  <arg>                  The arguments of the command
+
+GLOBAL OPTIONS
+  -h (--help)            Display this help message
+  -q (--quiet)           Do not output any message
+  -v (--verbose)         Increase the verbosity of messages: "-v" for normal output, "-vv" for more verbose output and "-vvv" for debug
+  -V (--version)         Display this application version
+  --ansi                 Force ANSI output
+  --no-ansi              Disable ANSI output
+  -n (--no-interaction)  Do not ask any interactive question
+
+AVAILABLE COMMANDS
+  asn1spec               Show ASN.1 spec for a specified version.
+  dump                   Dump the QR Code data from image to RAW, ASN.1 or JSON.
+  help                   Display the manual of a command
+
+
+# You are now ready to convert a QR code image to either RAW or ASN.1 or JSON.
+# The tool supports most popular image formats, e.g. png, jpg etc.
+> coronacheck-tools dump json /path/to/qr-code.jpg /path/to/output/directory
 ```
-# install using pip and show tool help
-pip install dcmrtstruct2nii
-dcmrtstruct2nii --help
 
-# list structures in DICOM RT Struct
-dcmrtstruct2nii list -r /path/to/rtstruct/file
+## Docker
 
-# convert help output
-dcmrtstruct2nii convert --help
+# License
 
-# convert DICOM RT Structs to .nii.gz masks
-dcmrtstruct2nii convert -r /path/to/rtstruct/file.dcm -d /path/to/original/extracted/dicom -o /output/path
-```
-
-# Python API
-```
-# install using pip and show tool help
-pip install dcmrtstruct2nii
-```
-
-```
-# lets test it
-from dcmrtstruct2nii import dcmrtstruct2nii, list_rt_structs
-
-print(list_rt_structs('/path/to/dicom/rtstruct/file.dcm'))
-
-dcmrtstruct2nii('/path/to/dicom/rtstruct/file.dcm', '/path/to/original/extracted/dicom/files', '/output/path')
-```
-
-# License and academic use
-
-The program is licensed [Apache license 2.0](https://github.com/Sikerdebaard/dcmrtstruct2nii/blob/master/LICENSE).
-
-For academic use, use a presistent copy from [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4037865.svg)](https://doi.org/10.5281/zenodo.4037865). 
-
-Please cite:
-
-```Phil, T. (2020). Sikerdebaard/dcmrtstruct2nii: v1.0.19 (v1.0.19) [Computer software]. Zenodo. https://doi.org/10.5281/ZENODO.4037865```
+The program is licensed under the [MIT License](https://github.com/Sikerdebaard/coronacheck-tools/blob/main/LICENSE).
