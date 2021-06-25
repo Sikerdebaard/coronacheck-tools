@@ -1,7 +1,7 @@
 # This is an unofficial tool that is in no way affiliated with CoronaCheck.nl or the Ministry of VWS. You have been warned!
 
-### Help requested on validating the QR Code!
-Please drop a message in this ticket if you can help out: https://github.com/Sikerdebaard/coronacheck-tools/issues/1
+### Help requested on validating the QR Code / crypto!
+This code seems to use IRMA. Please drop a message in this ticket if you can help out: https://github.com/Sikerdebaard/coronacheck-tools/issues/1
 
 # coronacheck-tools
 coronacheck-tools is a python package and cli tool that allows you to dump the contents of the qr code generated at https://coronacheck.nl either through the app or the website. This is useful to get some insight into the data stored in these QR Codes.
