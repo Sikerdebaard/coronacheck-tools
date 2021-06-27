@@ -36,7 +36,7 @@ class DumpCommand(Command):
         {output : Output directory. Will overwrite existing files.}
     """
 
-    def handle(self):
+    def handle(self):  # noqa: C901
         format = self.argument('format').upper().strip()
         image_path = Path(self.argument('image'))
         output_path = Path(self.argument('output'))
@@ -83,6 +83,7 @@ class DumpCommand(Command):
             with open(fname, mode) as fh:
                 fh.write(data)
             counter += 1
+
 
 class EncodeCommand(Command):
     """

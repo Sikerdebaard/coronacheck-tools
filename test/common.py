@@ -26,7 +26,6 @@ def filehash(file):
     return hasher.hexdigest()
 
 
-#@functools.lru_cache(maxsize=None)
 def objecthash(obj, usepickle=True):
     if usepickle:
         barr = pickle.dumps(obj)

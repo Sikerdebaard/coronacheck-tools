@@ -37,7 +37,6 @@ def v2_dhc_records_to_dict_repr(dhc_records):
     retval['aDisclosed'] = _attrs_to_dict(retval['aDisclosed'])
     retval['aDisclosed']['CredentialMetadata']['credentialVersion'] = retval['aDisclosed']['CredentialMetadata']['credentialVersion'].hex()
 
-
     return retval
 
 
@@ -67,6 +66,7 @@ def _dict_to_attr(dct):
         dct["birthDay"],
         dct["birthMonth"],
     ]
+
 
 def _attrs_to_dict(lst):
     return {
@@ -105,6 +105,7 @@ def _decode_metadata_attrs(record):
     credentials_metadata = v2_asn1.decode('CredentialMetadataSerialization', attribute_bytes)
 
     return credentials_metadata
+
 
 def _encode_metadata_attrs(records):
     asn1_der = v2_asn1.encode('CredentialMetadataSerialization', records)

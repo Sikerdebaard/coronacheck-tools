@@ -9,8 +9,8 @@ import cv2
 import tempfile
 import copy
 
-WindowName="Main View"
-view_window = cv2.namedWindow(WindowName,cv2.WINDOW_NORMAL)
+WindowName = "Main View"
+view_window = cv2.namedWindow(WindowName, cv2.WINDOW_NORMAL)
 cv2.setWindowProperty(WindowName, cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
 cv2.setWindowProperty(WindowName, cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_NORMAL)
 

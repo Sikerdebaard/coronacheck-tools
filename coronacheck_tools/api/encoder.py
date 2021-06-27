@@ -21,6 +21,7 @@ def _check_step(format, step, version):
 
     return format
 
+
 def raw_to_qr(output_file, raw):
     qr = qrcode.QRCode()
 
@@ -54,9 +55,9 @@ def encode_asn1(asn1, format='raw', version='auto'):
 
     return encode_asn1_der(asn1_der, format=format, version=version)
 
+
 def encode_dict(dct, format='raw', version='auto'):
     version = supported_versions[-1]  # use latest version
-    #format = _check_step(format, 'ASN1', version)
 
     asn1 = v2_dict_repr_to_dhc_records(dct)
 
@@ -64,4 +65,3 @@ def encode_dict(dct, format='raw', version='auto'):
         return asn1
 
     return encode_asn1(asn1, format=format, version=version)
-

@@ -3,9 +3,6 @@ from coronacheck_tools.common.qrreader import read_qr
 from coronacheck_tools.common.conversion import raw_decoder, supported_versions
 from coronacheck_tools.certificate_versions.v2 import v2_asn1, v2_dhc_records_to_dict_repr
 
-import asn1tools
-
-
 
 v2_valid_output_formats = ['RAW', 'ASN1_DER', 'ASN1', 'DICT']
 

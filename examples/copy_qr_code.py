@@ -34,7 +34,6 @@ with tempfile.TemporaryDirectory() as tmpdir:
         if len(codes) > 0:
             break
 
-
     raw_to_qr(qr_out_path, codes[0])
 
     cloned_qr = cv2.imread(str(qr_out_path))

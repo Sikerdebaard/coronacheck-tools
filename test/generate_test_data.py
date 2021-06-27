@@ -1,7 +1,7 @@
 import json
 
 from common import objecthash, TESTQRPATH, VALIDATIONDATA
-from coronacheck_tools import decode_qr, decode_raw, decode_asn1_der, decode_to_dict
+from coronacheck_tools import decode_qr
 from pprint import pprint
 
 
