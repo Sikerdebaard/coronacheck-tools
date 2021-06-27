@@ -1,8 +1,8 @@
 from setuptools import setup, find_packages
 import sys
 
-if sys.version_info < (3, 7):
-    sys.exit('Sorry, Python < 3.7 is not supported')
+if sys.version_info < (3, 6):
+    sys.exit('Sorry, Python < 3.6 is not supported')
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
@@ -16,7 +16,7 @@ setup(
     author='Thomas Phil',
     author_email='thomas@tphil.nl',
     url='https://github.com/Sikerdebaard/coronacheck-tools',
-    python_requires=">=3.7",
+    python_requires=">=3.6",
     packages=find_packages(),  # same as name
     install_requires=[
         'cleo>=0.8.1',
