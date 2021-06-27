@@ -51,6 +51,27 @@ GLOBAL OPTIONS
   --ansi                 Force ANSI output
   --no-ansi              Disable ANSI output
   -n (--no-interaction)  Do not ask any interactive question
+
+
+> coronacheck-tools encode --help
+
+This is an unofficial tool that is in no way affiliated with CoronaCheck.nl or the Ministry of VWS
+USAGE
+  coronacheck-tools encode <format> <input> <image>
+
+ARGUMENTS
+  <format>               Input format. RAW, ASN1, JSON.
+  <input>                Input file.
+  <image>                Path to an output image file. The QR code will be (over)written to this file.
+
+GLOBAL OPTIONS
+  -h (--help)            Display this help message
+  -q (--quiet)           Do not output any message
+  -v (--verbose)         Increase the verbosity of messages: "-v" for normal output, "-vv" for more verbose output and "-vvv" for debug
+  -V (--version)         Display this application version
+  --ansi                 Force ANSI output
+  --no-ansi              Disable ANSI output
+  -n (--no-interaction)  Do not ask any interactive question
 ```
 
 # Python API
