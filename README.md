@@ -1,3 +1,5 @@
+![badge](https://github.com/Sikerdebaard/coronacheck-tools/workflows/Python%20package/badge.svg)
+
 # This is an unofficial tool that is in no way affiliated with CoronaCheck.nl or the Ministry of VWS. You have been warned!
 
 ### Help requested on validating the QR Code / crypto!
