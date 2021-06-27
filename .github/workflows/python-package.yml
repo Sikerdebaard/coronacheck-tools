@@ -36,8 +36,6 @@ jobs:
         # exit-zero treats all errors as warnings.
         flake8 . --count --exit-zero --max-complexity=10 --exclude ./venv --max-line-length=160 --statistics
     - name: Test with pytest
-      env:
-        V2TESTQR: ${{ secrets.V2TESTQR }}
       run: |
-        echo $V2TESTQR | base64 -d > test/testdata/qrtest.png
+        echo ${{ secrets.V2TESTQR }} | base64 -d > test/testdata/qrtest.png
         pytest
