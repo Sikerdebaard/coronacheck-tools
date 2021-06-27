@@ -4,7 +4,7 @@
 This code seems to use IRMA. Please drop a message in this ticket if you can help out: https://github.com/Sikerdebaard/coronacheck-tools/issues/1
 
 # coronacheck-tools
-coronacheck-tools is a python package and cli tool that allows you to dump the contents of the qr code generated at https://coronacheck.nl either through the app or the website. This is useful to get some insight into the data stored in these QR Codes.
+coronacheck-tools is a python package and cli tool that allows you to fuzz with the contents of the qr code generated at https://coronacheck.nl either through the app or the website. This is useful to get some insight into the data stored in these QR Codes. Currently it supports dumping the QR code data and encoding the dumped data back into a QR code.
 
 # Installation
 
@@ -27,7 +27,7 @@ coronacheck-tools is a python package and cli tool that allows you to dump the c
 
 # Usage
 
-The tool currently has two command built-in. Dump is used for converting an image of a qr code to either raw, ASN.1 or json and the asn1spec command is used to print the ASN.1 specification file. The tool support most popular image formats as input.
+The tool currently has three command built-in. Dump is used for converting an image of a qr code to either raw, ASN.1 or json and the asn1spec command is used to print the ASN.1 specification file. Finally there's the encode command which allows you to convert the raw, ASN.1 or json files dumped by this tool back into a QR code image. The tool support most popular image formats as input/output.
 
 ```bash
 > coronacheck-tools dump --help
@@ -57,7 +57,7 @@ GLOBAL OPTIONS
 The python library allows for a little bit more control over how the qr-code is decoded. Here's an example script on how to dump a qr-code to ASN.1 and then read the ASN.1 and convert it to a dict.
 
 ```python3
-from coronacheck_tools import decode_qr, decode_raw, decode_asn1_der, decode_to_dict
+from coronacheck_tools import decode_qr, decode_raw, decode_asn1_der, decode_to_dict, encode_dict, raw_to_qr
 
 # An image can contain multiple QR codes. As such, this function always returns an array with decoded data.
 # Format can be the following:
@@ -69,10 +69,10 @@ from coronacheck_tools import decode_qr, decode_raw, decode_asn1_der, decode_to_
 
 
 # Let's first convert the qr-code to an ASN1 DER.
-asn1s = decode_qr('/tmp/test/ecc4.jpg', format='asn1_der')
+asn1s = decode_qr('test/testdata/qrtest.jpg', format='asn1_der')
 
 # Store the first QR code's ASN.1 DER to disk
-with open('/tmp/test/asn1der.asn', 'wb') as fh:
+with open('/tmp/asn1der.asn', 'wb') as fh:
     fh.write(asn1s[0])
 
 
@@ -81,7 +81,7 @@ with open('/tmp/test/asn1der.asn', 'wb') as fh:
 
 
 # Let's read the ASN.1 DER data from disk
-with open('/tmp/test/asn1der.asn', 'rb') as fh:
+with open('/tmp/asn1der.asn', 'rb') as fh:
     asn1_der = fh.read()
 
 # Since it's an ASN.1 DER we have to use decode_asn1_der to deserialize it.
@@ -92,7 +92,15 @@ with open('/tmp/test/asn1der.asn', 'rb') as fh:
 #
 # Lets convert the blob to a DICT
 
-qrcode_data = decode_asn1_der(asn1_der, format='dict')
+data = decode_asn1_der(asn1_der, format='dict')
+
+# Now lets re-encode the dict back to RAW and dump it as a QR code
+# As it's a dict, we have to use encode_dict
+rawdata = encode_dict(data, 'RAW')
+
+
+# Now convert RAW to a QR code image
+raw_to_qr('/tmp/qrcode.png', rawdata)
 ```
 
 
