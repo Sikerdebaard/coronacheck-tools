@@ -1,5 +1,5 @@
 """
-Read a QR code from webcam and copy it
+Read a QR code from webcam and fuzz with it
 """
 
 from coronacheck_tools import decode_qr, raw_to_qr, encode_dict

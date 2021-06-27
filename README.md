@@ -103,6 +103,8 @@ rawdata = encode_dict(data, 'RAW')
 raw_to_qr('/tmp/qrcode.png', rawdata)
 ```
 
+# Example scripts
+You can find some [example python scripts here](https://github.com/Sikerdebaard/coronacheck-tools/tree/main/examples). E.g. how to fuzz some of the QR code fields or how to read the QR from a webcam.
 
 # License
 
