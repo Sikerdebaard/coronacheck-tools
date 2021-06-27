@@ -1,6 +1,6 @@
 import base58
 
-
+supported_versions = (2,)
 _qr_charset = b"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ $%*+-./:"
 _confiks_charset = b"0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHI"
 
@@ -13,11 +13,34 @@ def raw_decoder(raw):
     The confiks decoder works similar to a base58 decoder but with a reduced alphabet.
 
 
-    :return: ASN.1 blob
+    :return: ASN.1 DER
     """
 
     return base58.b58decode(_qr_to_confiks(raw), alphabet=_confiks_charset)
 
+
+def asn1_der_encoder(asn1_der):
+    return _confiks_to_qr(base58.b58encode(asn1_der, alphabet=_confiks_charset))
+
+
+def _confiks_to_qr(data):
+    """
+        This converts confiks to the QR code alphabet.
+        """
+    qr_charset_len = 45
+
+    confiks_qr = {}
+
+    for i in range(0, qr_charset_len):
+        confiks_qr[_confiks_charset[i]] = _qr_charset[i]
+
+    input_len = len(data)
+    qr_encoded_input = []
+
+    for i in range(0, input_len):
+        qr_encoded_input.append(confiks_qr[data[i]])
+
+    return bytes(qr_encoded_input)
 
 
 def _qr_to_confiks(data):

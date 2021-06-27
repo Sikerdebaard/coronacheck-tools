@@ -1,13 +1,13 @@
 from pathlib import Path
 from coronacheck_tools.common.qrreader import read_qr
-from coronacheck_tools.common.decoders import raw_decoder
-from coronacheck_tools.certificate_versions.v2 import v2_asn1_decoder, v2_dhc_records_to_dict_repr
+from coronacheck_tools.common.conversion import raw_decoder, supported_versions
+from coronacheck_tools.certificate_versions.v2 import v2_asn1, v2_dhc_records_to_dict_repr
 
 import asn1tools
 
 
-supported_versions = (2,)
-v2_valid_output_formats = ['RAW', 'ASN1_BLOB', 'ASN1', 'DICT']
+
+v2_valid_output_formats = ['RAW', 'ASN1_DER', 'ASN1', 'DICT']
 
 
 def _check_step(format, step, version):
@@ -43,29 +43,29 @@ def decode_qr(image_file, format='dict'):
 
 def decode_raw(raw, format='dict', version='auto'):
     if not (raw.startswith('NL') and raw[3] == ':'):
-        raise ValueError(f'Invalid data. RAW data should start with NL: {raw}')
+        raise ValueError(f'Invalid data. RAW data should start with NLx: {raw}')
 
     if version == 'auto':
         version = int(raw[2], 16)
 
-    format = _check_step(format, 'ASN1_BLOB', version)
+    format = _check_step(format, 'ASN1_DER', version)
 
     if version == 2:
         data = raw[4:]
 
     asn1_blob = raw_decoder(data.encode())
 
-    if format == 'ASN1_BLOB':
+    if format == 'ASN1_DER':
         return asn1_blob
 
-    return decode_asn1_blob(asn1_blob, format=format, version=version)
+    return decode_asn1_der(asn1_blob, format=format, version=version)
 
 
-def decode_asn1_blob(asn1_blob, format='dict', version=2):
+def decode_asn1_der(asn1_der, format='dict', version=2):
     format = _check_step(format, 'ASN1', version)
 
     if version == 2:
-        dhc_records = v2_asn1_decoder.decode('ProofSerializationV2', asn1_blob)
+        dhc_records = v2_asn1.decode('ProofSerializationV2', asn1_der)
 
     if format == 'ASN1':
         return dhc_records

@@ -9,7 +9,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name='coronacheck-tools',
-    version='1.0.0',
+    version='1.0.2',
     description='Unofficial tool to dump QR code data from CoronaCheck.nl to RAW, ASN.1 or JSON. Not affiliated with CoronaCheck.nl or Ministry of VWS.',
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -24,6 +24,8 @@ setup(
         'pyzbar>=0.1.8',
         'opencv-python>=4.5.2.54',
         'asn1tools>=0.158.0',
+        'qrcode>=6.1',
+        'Pillow>=8.2.0',
     ],
     entry_points={
         'console_scripts': [

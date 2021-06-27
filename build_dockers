@@ -1,0 +1,7 @@
+#!/bin/bash
+docker build -t sikerdebaard/coronacheck-tools:$1 --build-arg PYTHON=3.7 --build-arg VERSION=$1 -f docker/Dockerfile.pub . 
+docker tag sikerdebaard/coronacheck-tools:$1 sikerdebaard/coronacheck-tools:latest
+
+docker login
+docker push sikerdebaard/coronacheck-tools:$1
+docker push sikerdebaard/coronacheck-tools:latest

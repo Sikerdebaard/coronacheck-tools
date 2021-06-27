@@ -56,22 +56,22 @@ GLOBAL OPTIONS
 The python library allows for a little bit more control over how the qr-code is decoded. Here's an example script on how to dump a qr-code to ASN.1 and then read the ASN.1 and convert it to a dict.
 
 ```python3
-from coronacheck_tools import decode_qr, decode_raw, decode_asn1_blob, decode_to_dict
+from coronacheck_tools import decode_qr, decode_raw, decode_asn1_der, decode_to_dict
 
 # An image can contain multiple QR codes. As such, this function always returns an array with decoded data.
 # Format can be the following:
 #  RAW = Just grab the raw data from the QR code(s) in the image
-#  ASN1_BLOB = Decoded QR Code data. The raw data is confiks and then base45 decoded. This results in a binary blob that contains the ASN.1 data.
-#  ASN1 = Uses the ASN.1 specification to decode the ASN1_BLOB data. This is then represented as a dict. Some of the fields in this data
+#  ASN1_DER = Decoded QR Code data. The raw data is confiks and then base45 decoded. This results in a ASN.1 DER blob.
+#  ASN1 = Uses the ASN.1 specification to decode the ASN.1 DER data. This is then represented as a dict. Some of the fields in this data
 #         are still encoded. Mainly the aDisclosed records still need some decoding. The data is almost usable at this point.
 #  DICT = Decode everything, even the records within aDisclosed, and output a dict.
 
 
-# Let's first convert the qr-code to an ASN1 binary blob.
-asn1s = decode_qr('/tmp/test/ecc4.jpg', format='asn1_blob')
+# Let's first convert the qr-code to an ASN1 DER.
+asn1s = decode_qr('/tmp/test/ecc4.jpg', format='asn1_der')
 
-# Store the first QR code's ASN.1 blob to disk
-with open('/tmp/test/asn1blob.asn', 'wb') as fh:
+# Store the first QR code's ASN.1 DER to disk
+with open('/tmp/test/asn1der.asn', 'wb') as fh:
     fh.write(asn1s[0])
 
 
@@ -79,19 +79,19 @@ with open('/tmp/test/asn1blob.asn', 'wb') as fh:
 # E.g.: openssl asn1parse -in /tmp/test/asn1blob.asn -inform DER
 
 
-# Let's read the ASN blob data from disk
-with open('/tmp/test/asn1blob.asn', 'rb') as fh:
-    asn_blob = fh.read()
+# Let's read the ASN.1 DER data from disk
+with open('/tmp/test/asn1der.asn', 'rb') as fh:
+    asn1_der = fh.read()
 
-# Since it's an ASN blob we have to use decode_asn1_blob to decode it.
+# Since it's an ASN.1 DER we have to use decode_asn1_der to deserialize it.
 # Like all of these functions it allows for a desired format parameter.
-# Data can always be converted to the next step in the pipeline but 
+# Data can always be converted to the next step in the pipeline but
 # never backwards. It always happens in this order:
-# RAW -> ASN1_BLOB -> ASN1 -> DICT
+# RAW -> ASN1_DER -> ASN1 -> DICT
 #
 # Lets convert the blob to a DICT
 
-qrcode_data = decode_asn1_blob(asn_blob, format='dict')
+qrcode_data = decode_asn1_der(asn1_der, format='dict')
 ```
 
 
