@@ -54,7 +54,7 @@ GLOBAL OPTIONS
 ```
 
 # Python API
-The python library allows for a little bit more control over how the qr-code is decoded. Here's an example script on how to dump a qr-code to ASN.1 and then read the ASN.1 and convert it to a dict.
+The python library allows for a little bit more control over how the qr-code is decoded. Here's an example script on how to dump a qr-code to ASN.1 and then read the ASN.1 and convert it to a dict. Finally the script wil re-encode the whole thing back to a QR code.
 
 ```python3
 from coronacheck_tools import decode_qr, decode_raw, decode_asn1_der, decode_to_dict, encode_dict, raw_to_qr
