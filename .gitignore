@@ -1,4 +1,4 @@
-test/testdata
+test/testdata/qrtest*
 activate
 *.swp
 *.swo

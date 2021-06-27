@@ -22,11 +22,17 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: ${{ matrix.python-version }}
+    - name: Testenv qr code
+      env:
+        V2QRTEST: ${{ secrets.V2TESTQR }}
+      run: |
+        echo $V2TESTQR | base64 -d > test/testdata/qrtest.png
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
         python -m pip install -e .
         python -m pip install -r ./dev_requirements.txt
+        apt-get install -y libzbar-dev
     - name: Lint with flake8
       run: |
         # stop the build if there are Python syntax errors or undefined names
