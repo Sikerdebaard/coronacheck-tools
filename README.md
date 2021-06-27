@@ -15,7 +15,7 @@ coronacheck-tools is a python package and cli tool that allows you to fuzz with 
 
 ```bash
 # Install the package through pip
-# This package requires python 3.6 or 3.7
+# This package requires python 3.6 or higher
 > pip install coronacheck-tools
 > coronacheck-tools dump json /path/to/qrcode.jpg /path/to/output/directory
 ```
@@ -78,7 +78,7 @@ GLOBAL OPTIONS
 ```
 
 # Python API
-This package requires python 3.6 or 3.7.
+This package requires python 3.6 or higher
 
 The python library allows for a little bit more control over how the qr-code is decoded. Here's an example script on how to dump a qr-code to ASN.1 and then read the ASN.1 and convert it to a dict. Finally the script wil re-encode the whole thing back to a QR code.
 
