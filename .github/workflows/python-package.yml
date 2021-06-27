@@ -38,4 +38,5 @@ jobs:
     - name: Test with pytest
       run: |
         echo ${{ secrets.V2TESTQR }} | base64 -d > test/testdata/qrtest.png
+        md5sum test/testdata/qrtest.png
         pytest
