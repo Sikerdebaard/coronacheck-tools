@@ -26,11 +26,17 @@ def filehash(file):
     return hasher.hexdigest()
 
 
-def objecthash(obj, usepickle=True):
+class BytesDump(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, bytes):
+            return obj.hex()
+        return json.JSONEncoder.default(self, obj)
+
+def objecthash(obj, usepickle=False):
     if usepickle:
         barr = pickle.dumps(obj)
     else:
-        barr = json.dumps(obj).encode()
+        barr = json.dumps(obj, cls=BytesDump).encode()
 
     hasher = _get_hash_algo()
     hasher.update(barr)

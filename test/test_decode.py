@@ -17,6 +17,8 @@ def validation_data():
 
 
 def test_qr_raw(validation_data):
+    print(validation_data['qr_raw'])
+    print(decode(TESTQRPATH, 'RAW'))
     assert validation_data['qr_raw'] == decode(TESTQRPATH, 'RAW')
 
 
