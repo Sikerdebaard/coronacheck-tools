@@ -10,7 +10,7 @@ from coronacheck_tools import decode_qr, decode_raw, decode_asn1_der, decode_to_
 
 
 # Let's first convert the qr-code to an ASN1 DER.
-asn1s = decode_qr('test/testdata/qrtest.jpg', format='asn1_der')
+asn1s = decode_qr('test/testdata/qrtest.png', format='asn1_der')
 
 # Store the first QR code's ASN.1 DER to disk
 with open('/tmp/asn1der.asn', 'wb') as fh:
