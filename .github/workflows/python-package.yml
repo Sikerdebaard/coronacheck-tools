@@ -38,4 +38,5 @@ jobs:
     - name: Test with pytest
       run: |
         echo "${{ secrets.V2TESTQR }}" | base64 -d > test/testdata/qrtest.png
+        echo "${{ secrets.V2TESTQRVALID }}" | base64 -d > test/testdata/qrtest2.png
         pytest
