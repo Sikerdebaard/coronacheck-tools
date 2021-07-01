@@ -1,12 +1,10 @@
 ![badge](https://github.com/Sikerdebaard/coronacheck-tools/workflows/Python%20package/badge.svg)
 
-# This is an unofficial tool that is in no way affiliated with CoronaCheck.nl or the Ministry of VWS. You have been warned!
-
-### Help requested on validating the QR Code / crypto!
-This code seems to use IRMA. Please drop a message in this ticket if you can help out: https://github.com/Sikerdebaard/coronacheck-tools/issues/1
-
 # coronacheck-tools
-coronacheck-tools is a python package and cli tool that allows you to fuzz with the contents of the qr code generated at https://coronacheck.nl either through the app or the website. This is useful to get some insight into the data stored in these QR Codes. Currently it supports dumping the QR code data and encoding the dumped data back into a QR code.
+
+**This is an unofficial tool that is in no way affiliated with CoronaCheck.nl or the Ministry of VWS. You have been warned!**
+
+coronacheck-tools is a python package and cli tool that allows you to fuzz with the contents of the domestic coronacheck qr code generated at https://coronacheck.nl either through the app or the website. This is useful to get some insight into the data stored in these QR Codes. Currently it supports dumping the QR code data and encoding the dumped data back into a QR code.
 
 # Installation
 
@@ -30,7 +28,7 @@ coronacheck-tools is a python package and cli tool that allows you to fuzz with 
 
 # Usage
 
-The tool currently has three command built-in. Dump is used for converting an image of a qr code to either raw, ASN.1 or json and the asn1spec command is used to print the ASN.1 specification file. Finally there's the encode command which allows you to convert the raw, ASN.1 or json files dumped by this tool back into a QR code image. The tool support most popular image formats as input/output.
+The tool currently has three commands built-in. Dump is used for converting an image of a qr code to either raw, ASN.1 or json and the asn1spec command is used to print the ASN.1 specification file. Finally there's the encode command which allows you to convert the raw, ASN.1 or json files dumped by this tool back into a QR code image. The tool supports most popular image formats as input/output.
 
 ```bash
 > coronacheck-tools dump --help
