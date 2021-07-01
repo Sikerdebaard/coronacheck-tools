@@ -23,7 +23,7 @@ setup(
         'cleo>=0.8.1',
         'base58>=2.1.0',
         'pyzbar>=0.1.8',
-        'opencv-python>=4.5.2.54',
+        'opencv-python>=4.3.0.38',
         'asn1tools>=0.158.0',
         'qrcode>=6.1',
         'Pillow>=8.2.0',
