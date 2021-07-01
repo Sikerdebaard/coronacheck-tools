@@ -18,6 +18,7 @@ setup(
     url='https://github.com/Sikerdebaard/coronacheck-tools',
     python_requires=">=3.6",
     packages=find_packages(),  # same as name
+    package_data={'': ['lib/(*.dll|*.so)']},
     install_requires=[
         'cleo>=0.8.1',
         'base58>=2.1.0',
@@ -26,6 +27,10 @@ setup(
         'asn1tools>=0.158.0',
         'qrcode>=6.1',
         'Pillow>=8.2.0',
+        'cffi>=1.14.5',
+        'numexpr>=2.7.3',
+        'appdirs>=1.4.4',
+        'requests>=2.25.1',
     ],
     entry_points={
         'console_scripts': [

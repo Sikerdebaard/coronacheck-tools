@@ -151,3 +151,7 @@ def main():
     print(AFFILIATE_WARNING)
 
     application.run()
+
+
+if __name__ == '__main__':
+    main()

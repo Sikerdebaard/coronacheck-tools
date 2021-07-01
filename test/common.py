@@ -6,6 +6,10 @@ import functools
 
 READ_BUF_SIZE = 65536  # lets read stuff in 64kb chunks!
 TESTQRPATH = 'test/testdata/qrtest.png'
+
+TESTQRINVALIDPATH = 'test/testdata/qrtest.png'
+TESTQRVALIDPATH = 'test/testdata/qrtest2.png'
+
 VALIDATIONDATA = 'test/testdata/validation.json'
 
 

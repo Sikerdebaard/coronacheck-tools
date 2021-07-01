@@ -1,3 +1,4 @@
+build/platform*
 test/testdata/qrtest*
 activate
 *.swp
@@ -5,6 +6,7 @@ activate
 .idea
 *.pyc
 *.egg-info
+*.h
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
