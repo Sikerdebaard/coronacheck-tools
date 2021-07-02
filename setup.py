@@ -9,8 +9,8 @@ with open("README.md", "r") as fh:
 
 setup(
     name='coronacheck-tools',
-    version='1.1.0',
-    description='Unofficial tool to encode/decode QR code data from CoronaCheck.nl to RAW, ASN.1 or JSON. Not affiliated with CoronaCheck.nl or Ministry of VWS.',  # noqa: E501
+    version='1.1.1',
+    description='Unofficial tool to encode, decode and verify the QR code from CoronaCheck.nl. Not affiliated with CoronaCheck.nl or Ministry of VWS.',  # noqa: E501
     long_description=long_description,
     long_description_content_type="text/markdown",
     author='Thomas Phil',

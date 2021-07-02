@@ -18,20 +18,15 @@ if not cam.isOpened():
 while True:
     ret_val, img = cam.read()
 
-    img = cv2.resize(img, None, fx=0.5, fy=0.5, interpolation=cv2.INTER_AREA)
-    cv2.imshow('Input', img)
+    # Resize to reduce the amount of compute required
+    #img = cv2.resize(img, None, fx=0.5, fy=0.5, interpolation=cv2.INTER_AREA)
 
     img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
     im_pil = Image.fromarray(img)
 
-    c = cv2.waitKey(1)
-    if c >= 27:
-        raise SystemExit('Exiting: key pressed')
+    codes = cv2img_decode_qr(img, 'raw')
 
-    codes = cv2img_decode_qr(im_pil, 'raw')
-
-    # Allow international EHC qr codes?
-    allow_international = True
+    allow_international = False
     results = [validate_raw(x, allow_international=allow_international) for x in codes]
 
     for result in results:

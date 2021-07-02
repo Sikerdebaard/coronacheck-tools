@@ -1,5 +1,5 @@
 from pathlib import Path
-from coronacheck_tools.common.qrreader import read_qr
+from coronacheck_tools.common.qrreader import read_qr, cv2_read_qr
 from coronacheck_tools.common.conversion import raw_decoder, supported_versions
 from coronacheck_tools.certificate_versions.v2 import v2_asn1, v2_dhc_records_to_dict_repr
 
@@ -19,6 +19,19 @@ def _check_step(format, step, version):
         raise ValueError(f'Invalid format, choose one of {", ".join(valid_output_formats[valid_output_formats.index(format) + 1:])}')
 
     return format
+
+
+def cv2img_decode_qr(cv2img, format='dict'):
+    format = _check_step(format, 'RAW', 2)  # default to v2, it doesn't really matter for decoding the QR
+
+    qr_codes = cv2_read_qr(cv2img)
+
+    if format == 'RAW':
+        return qr_codes
+
+    qr_codes = [qr for qr in qr_codes if len(qr) > 4 and qr.startswith('NL') and qr[3] == ':']
+
+    return [decode_raw(qr, format=format, version=int(qr[2], 16)) for qr in qr_codes]
 
 
 def decode_qr(image_file, format='dict'):
