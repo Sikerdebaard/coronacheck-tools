@@ -1,6 +1,6 @@
 #
 # Required libs before use:
-# apt install libzbar-dev libopencv-dev
+# apt install ffmpeg libsm6 libxext6 zbar-tools libopencv-dev
 # pip install coronacheck-tools>=1.1.1
 #
 from coronacheck_tools import cv2img_decode_qr
