@@ -18,7 +18,7 @@ if not cam.isOpened():
 while True:
     ret_val, img = cam.read()
 
-    # Resize to reduce the amount of compute required
+    # Optionally resize to reduce the amount of compute required
     #img = cv2.resize(img, None, fx=0.5, fy=0.5, interpolation=cv2.INTER_AREA)
 
     img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
