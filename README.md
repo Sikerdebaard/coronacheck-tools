@@ -116,8 +116,8 @@ GLOBAL OPTIONS
 ```
 
 ## verify
-This command is used for verifying a QR code. It supports QR image, RAW
-ASN1 DER and JSON as input for verification. This tool uses a thin
+This command is used for verifying a QR code. It supports a QR image,
+RAW, ASN1 DER and JSON as input for verification. This tool uses a thin
 wrapper around the official mobilecore verifier as used by the
 CoronaCheck.nl app.
 
