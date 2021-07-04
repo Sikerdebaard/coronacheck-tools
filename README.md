@@ -34,10 +34,6 @@ coronacheck-tools is a python package and cli tool that allows you to validate, 
 # Running the tool through docker is quite easy.
 # Just docker run sikerdebaard/coronacheck-tools:latest
 # Optional: add --user `id -u` to change the uid/group of output files to the current user
-> docker run --rm -v /path/to/your/data:/data sikerdebaard/coronacheck-tools:latest dump json /data/qrcode.jpg /data
-
-# This is how you can validate your QR code
-> docker run --rm -v /path/to/your/data:/data sikerdebaard/coronacheck-tools:latest validate qr /data/qrcode.jpg
 
 # Example: dumping QR code data to JSON
 > docker run --rm -v /path/to/your/data:/data sikerdebaard/coronacheck-tools:latest dump json /data/qrcode.jpg /data
@@ -51,7 +47,6 @@ coronacheck-tools is a python package and cli tool that allows you to validate, 
 # Example: convert ASN1 DER to QR
 > docker run --rm -v /path/to/your/data:/data sikerdebaard/coronacheck-tools:latest convert asn1 /data/asn1.der qr /data
 ```
-#
 
 # Usage
 
