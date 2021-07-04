@@ -21,14 +21,11 @@ while True:
     img = cv2.resize(img, None, fx=0.5, fy=0.5, interpolation=cv2.INTER_AREA)
     cv2.imshow('Input', img)
 
-    img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-    im_pil = Image.fromarray(img)
-
     c = cv2.waitKey(1)
     if c >= 27:
         raise SystemExit('Exiting: key pressed')
 
-    codes = cv2img_decode_qr(im_pil, 'raw')
+    codes = cv2img_decode_qr(img, 'raw')
 
     # Allow international EHC qr codes?
     allow_international = True
