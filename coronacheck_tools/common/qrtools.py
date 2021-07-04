@@ -10,7 +10,8 @@ def raw_to_qr(output_file, raw):
     qr = qrcode.QRCode()
 
     qr.add_data(raw)
-    img = qr.make(fit=True, fill="black", back_color="white")
+    qr.make(fit=True)
+    img = qr.make_image(fill="black", back_color="white")
     img.save(output_file)
 
 

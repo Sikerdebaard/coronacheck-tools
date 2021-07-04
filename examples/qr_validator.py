@@ -4,7 +4,7 @@
 # pip install coronacheck-tools>=1.1.1
 #
 from coronacheck_tools import cv2img_decode_qr
-from coronacheck_tools.verification.verifier import validate_raw
+from coronacheck_tools import validate_raw
 from PIL import Image
 
 import cv2

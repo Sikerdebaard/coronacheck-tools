@@ -173,7 +173,7 @@ This package requires python 3.6 or higher
 The python library allows for a little bit more control over how the qr-code is decoded. Here's an example script on how to dump a qr-code to ASN.1 and then read the ASN.1 and convert it to a dict. Finally the script wil re-encode the whole thing back to a QR code.
 
 ```python3
-from coronacheck_tools import decode_qr, decode_raw, decode_asn1_der, decode_to_dict, encode_dict, raw_to_qr
+from coronacheck_tools import decode_qr, decode_raw, decode_asn1_der, decode_to_dict, encode_dict, raw_to_qr, validate_raw
 
 # An image can contain multiple QR codes. As such, this function always returns an array with decoded data.
 # Format can be the following:
@@ -185,7 +185,7 @@ from coronacheck_tools import decode_qr, decode_raw, decode_asn1_der, decode_to_
 
 
 # Let's first convert the qr-code to an ASN1 DER.
-asn1s = decode_qr('test/testdata/qrtest.jpg', format='asn1_der')
+asn1s = decode_qr('test/testdata/qrtest.png', format='asn1_der')
 
 # Store the first QR code's ASN.1 DER to disk
 with open('/tmp/asn1der.asn', 'wb') as fh:
@@ -210,6 +210,7 @@ with open('/tmp/asn1der.asn', 'rb') as fh:
 
 data = decode_asn1_der(asn1_der, format='dict')
 
+
 # Now lets re-encode the dict back to RAW and dump it as a QR code
 # As it's a dict, we have to use encode_dict
 rawdata = encode_dict(data, 'RAW')
@@ -217,6 +218,10 @@ rawdata = encode_dict(data, 'RAW')
 
 # Now convert RAW to a QR code image
 raw_to_qr('/tmp/qrcode.png', rawdata)
+
+
+# Finally let's validate the QR Code!
+validity = validate_raw(rawdata)
 ```
 
 # Example scripts

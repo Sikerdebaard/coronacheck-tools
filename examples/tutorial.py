@@ -1,4 +1,4 @@
-from coronacheck_tools import decode_qr, decode_raw, decode_asn1_der, decode_to_dict, encode_dict, raw_to_qr  # noqa: F401
+from coronacheck_tools import decode_qr, decode_raw, decode_asn1_der, decode_to_dict, encode_dict, raw_to_qr, validate_raw  # noqa: F401
 
 # An image can contain multiple QR codes. As such, this function always returns an array with decoded data.
 # Format can be the following:
@@ -43,3 +43,7 @@ rawdata = encode_dict(data, 'RAW')
 
 # Now convert RAW to a QR code image
 raw_to_qr('/tmp/qrcode.png', rawdata)
+
+
+# Finally let's validate the QR Code!
+validity = validate_raw(rawdata)
