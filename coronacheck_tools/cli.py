@@ -1,11 +1,11 @@
 from pathlib import Path
 from cleo import Command, Application
 
-from coronacheck_tools import decode_qr, encode_asn1_der, encode_dict, raw_to_qr
 from coronacheck_tools.certificate_versions.v2 import v2_asn1_specs
+from coronacheck_tools.clitools import parse_input, write_output,  convert, VALID_FORMATS
+from coronacheck_tools.verification.verifier import validate_raw
 
 import pkg_resources  # part of setuptools
-import json
 
 
 AFFILIATE_WARNING = 'This is an unofficial tool that is in no way affiliated with CoronaCheck.nl or the Ministry of VWS'
@@ -41,10 +41,10 @@ class DumpCommand(Command):
         image_path = Path(self.argument('image'))
         output_path = Path(self.argument('output'))
 
-        valid_formats = ('RAW', 'ASN1', 'JSON')
+
         error = False
-        if format not in valid_formats:
-            self.line(f'<error>Invalid output format: {format} specify one of {", ".join(valid_formats)}</error>')
+        if format not in VALID_FORMATS:
+            self.line(f'<error>Invalid output format: {format} specify one of {", ".join(VALID_FORMATS)}</error>')
             error = True
 
         if not image_path.is_file():
@@ -64,50 +64,70 @@ class DumpCommand(Command):
         if format == 'JSON':
             format = 'DICT'
 
-        retvals = decode_qr(image_path, format=format)
-
-        mode = 'w'
-        if format == 'RAW':
-            extension = '.raw'
-        elif format == 'ASN1_DER':
-            extension = '.asn'
-            mode = 'wb'
-        elif format == 'DICT':
-            retvals = [json.dumps(x) for x in retvals]
-            extension = '.json'
-
-        counter = 0
-        for data in retvals:
-            fname = output_path / f'dhc_data_{counter:03}{extension}'
-            print(f'Writing code {counter+1}/{len(retvals)} to {fname}')
-            with open(fname, mode) as fh:
-                fh.write(data)
-            counter += 1
+        input_data = parse_input('QR', image_path)
+        data = convert('QR', input_data, format)
+        write_output(data, format, output_path)
 
 
-class EncodeCommand(Command):
+class ConvertCommand(Command):
     """
-    Encode RAW, ASN.1 or JSON to QR code
+    Convert between QR image, RAW, ASN.1 der and JSON
 
-    encode
-        {format : Input format. RAW, ASN1, JSON.}
+    convert
+        {input-format : Input format. QR, RAW, ASN1, JSON.}
         {input : Input file.}
-        {image : Path to an output image file. The QR code will be (over)written to this file.}
+        {output-format : Output format. QR, RAW, ASN1, JSON.}
+        {output : Output directory. Existing files will be overwritten without warning.}
     """
 
     def handle(self):
-        format = self.argument('format').upper().strip()
-        image_path = Path(self.argument('image'))
+        input_format = self.argument('input-format').upper().strip()
         input_path = Path(self.argument('input'))
 
-        valid_formats = ('RAW', 'ASN1', 'JSON')
+        output_format = self.argument('output-format').upper().strip()
+        output_path = Path(self.argument('output'))
+
         error = False
-        if format not in valid_formats:
-            self.line(f'<error>Invalid output format: {format} specify one of {", ".join(valid_formats)}</error>')
+        if input_format not in VALID_FORMATS:
+            self.line(f'<error>Invalid input format: {format} specify one of {", ".join(VALID_FORMATS)}</error>')
             error = True
 
-        if not image_path.parent.is_dir():
-            self.line(f'<error>Output image file directory does not exist: {image_path.parent}</error>')
+        if output_format not in VALID_FORMATS:
+            self.line(f'<error>Invalid output format: {format} specify one of {", ".join(VALID_FORMATS)}</error>')
+            error = True
+
+        if not input_path.is_file():
+            self.line(f'<error>Input file does not exist: {input_path}</error>')
+            error = True
+
+        if not output_path.is_dir():
+            self.line(f'<error>Output directory does not exist: {output_path}</error>')
+            error = True
+
+        if error:
+            return
+
+        input_data = parse_input(input_format, input_path)
+        data = convert(input_format, input_data, output_format)
+        write_output(data, output_format, output_path)
+
+
+class ValidateCommand(Command):
+    """
+    Validate a QR Code from a QR image, RAW, ASN1 DER or JSON.
+
+    validate
+        {input-format : Input format. QR, RAW, ASN1, JSON.}
+        {input : Input file.}
+    """
+
+    def handle(self):
+        input_format = self.argument('input-format').upper().strip()
+        input_path = Path(self.argument('input'))
+
+        error = False
+        if input_format not in VALID_FORMATS:
+            self.line(f'<error>Invalid input format: {format} specify one of {", ".join(VALID_FORMATS)}</error>')
             error = True
 
         if not input_path.is_file():
@@ -117,35 +137,28 @@ class EncodeCommand(Command):
         if error:
             return
 
-        if format == 'ASN1':
-            format = 'ASN1_DER'
-            with open(input_path, 'rb') as fh:
-                data = fh.read()
-            retval = encode_asn1_der(data, 'raw')
+        input_data = parse_input(input_format, input_path)
+        data = convert(input_format, input_data, "RAW")
 
-        if format == 'JSON':
-            format = 'DICT'
-            with open(input_path, 'r') as fh:
-                data = json.load(fh)
-            retval = encode_dict(data)
+        if isinstance(data, list):
+            # if we have multiple QR codes only verify the first one
+            data = data[0]
 
-        if format == 'RAW':
-            with open(input_path, 'r') as fh:
-                retval = fh.read()
+        # Allow international EHC qr codes?
+        allow_international = False
+        result = validate_raw(data, allow_international=allow_international)
 
-        print(f'Writing to {image_path}')
-        raw_to_qr(image_path, retval)
-
-        raw_path = image_path.parent / f"{image_path.stem}.raw"
-        print(f'Writing to {raw_path}')
-        with open(raw_path, 'w') as fh:
-            fh.write(retval)
+        if result[0]:
+            self.line(f"<info>🥳 Code is valid</info> {result[1]}")
+        else:
+            self.line(f"<comment>😭 Code invalid</comment> {result[1]}")
 
 
 def main():
     application = Application(name="coronacheck-tools", version=pkg_resources.require("coronacheck-tools")[0].version)
     application.add(DumpCommand())
-    application.add(EncodeCommand())
+    application.add(ConvertCommand())
+    application.add(ValidateCommand())
     application.add(Asn1SpecCommand())
 
     print(AFFILIATE_WARNING)

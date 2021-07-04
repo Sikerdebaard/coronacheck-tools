@@ -2,8 +2,6 @@ from coronacheck_tools.common.conversion import supported_versions, asn1_der_enc
 from coronacheck_tools.api.decoder import v2_valid_output_formats as v2_decoder_valid_output_formats
 from coronacheck_tools.certificate_versions.v2 import v2_asn1, v2_dict_repr_to_dhc_records
 
-import qrcode
-
 
 v2_valid_output_formats = list(reversed(v2_decoder_valid_output_formats[:-1]))
 
@@ -20,16 +18,6 @@ def _check_step(format, step, version):
         raise ValueError(f'Invalid format, choose one of {", ".join(valid_output_formats[valid_output_formats.index(format) + 1:])}')
 
     return format
-
-
-def raw_to_qr(output_file, raw):
-    qr = qrcode.QRCode()
-
-    qr.add_data(raw)
-    qr.make(fit=True)
-
-    img = qr.make_image(fill="black", back_color="white")
-    img.save(output_file)
 
 
 def encode_asn1_der(asn1_der, format='raw', version='auto'):
