@@ -3,7 +3,7 @@ import itertools
 
 from cleo import Application
 from cleo import CommandTester
-from coronacheck_tools.cli import ConvertCommand, ValidateCommand
+from coronacheck_tools.cli import ConvertCommand, VerifyCommand
 from test.common import TESTQRPATH, TESTQRVALIDPATH, TESTQRINVALIDPATH, filehash, load_validation_data
 from pathlib import Path
 
@@ -16,7 +16,7 @@ def validation_data():
 def build_tester(command):
     application = Application()
     application.add(ConvertCommand())
-    application.add(ValidateCommand())
+    application.add(VerifyCommand())
 
     command = application.find(command)
     command_tester = CommandTester(command)
@@ -58,17 +58,17 @@ def test_cli_convert(tmpdir, validation_data):
         assert validation_data['rawfile'] == filehash(cmpfile)
 
 
-def test_cli_validate_invalid():
-    tester = build_tester('validate')
+def test_cli_verify_invalid():
+    tester = build_tester('verify')
 
     tester.execute(f"QR {TESTQRINVALIDPATH}")
     output = tester.io.fetch_output()
 
-    assert 'Code invalid' in output
+    assert 'Code is invalid' in output
 
 
-def test_cli_validate_valid():
-    tester = build_tester('validate')
+def test_cli_verify_valid():
+    tester = build_tester('verify')
 
     tester.execute(f"QR {TESTQRVALIDPATH}")
     output = tester.io.fetch_output()

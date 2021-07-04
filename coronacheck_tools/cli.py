@@ -58,12 +58,6 @@ class DumpCommand(Command):
         if error:
             return
 
-        if format == 'ASN1':
-            format = 'ASN1_DER'  # retrieve binary ASN1 DER
-
-        if format == 'JSON':
-            format = 'DICT'
-
         input_data = parse_input('QR', image_path)
         data = convert('QR', input_data, format)
         write_output(data, format, output_path)
@@ -112,11 +106,11 @@ class ConvertCommand(Command):
         write_output(data, output_format, output_path)
 
 
-class ValidateCommand(Command):
+class VerifyCommand(Command):
     """
-    Validate a QR Code from a QR image, RAW, ASN1 DER or JSON.
+    Verify a QR Code from a QR image, RAW, ASN1 DER or JSON.
 
-    validate
+    verify
         {input-format : Input format. QR, RAW, ASN1, JSON.}
         {input : Input file.}
     """
@@ -149,16 +143,16 @@ class ValidateCommand(Command):
         result = validate_raw(data, allow_international=allow_international)
 
         if result[0]:
-            self.line(f"<info>🥳 Code is valid</info> {result[1]}")
+            self.line(f"<info>Code is valid</info> {result[1]}")
         else:
-            self.line(f"<comment>😭 Code invalid</comment> {result[1]}")
+            self.line(f"<error>Code is invalid</error> {result[1]}")
 
 
 def main():
     application = Application(name="coronacheck-tools", version=pkg_resources.require("coronacheck-tools")[0].version)
     application.add(DumpCommand())
     application.add(ConvertCommand())
-    application.add(ValidateCommand())
+    application.add(VerifyCommand())
     application.add(Asn1SpecCommand())
 
     print(AFFILIATE_WARNING)

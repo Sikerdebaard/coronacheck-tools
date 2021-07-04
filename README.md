@@ -4,7 +4,7 @@
 
 **This is an unofficial tool that is in no way affiliated with CoronaCheck.nl or the Ministry of VWS. You have been warned!**
 
-coronacheck-tools is a python package and cli tool that allows you to fuzz with the contents of the domestic coronacheck qr code generated at https://coronacheck.nl either through the app or the website. This is useful to get some insight into the data stored in these QR Codes. Currently it supports dumping the QR code data and encoding the dumped data back into a QR code.
+coronacheck-tools is a python package and cli tool that allows you to validate, convert and dump the contents of the domestic coronacheck qr code generated at https://coronacheck.nl either through the app or the website. This tool is useful to get some insight into the data stored in these QR Codes or to create your own QR validator.
 
 # Installation
 
@@ -15,20 +15,50 @@ coronacheck-tools is a python package and cli tool that allows you to fuzz with 
 # Install the package through pip
 # This package requires python 3.6 or higher
 > pip install coronacheck-tools
+
+# Example: dumping QR code data to JSON
 > coronacheck-tools dump json /path/to/qrcode.jpg /path/to/output/directory
+
+# Example: validate QR Code
+> coronacheck-tools verify qr /path/to/qrcode.jpg
+
+# Example: convert QR to ASN1 DER
+> coronacheck-tools convert qr /path/to/qrcode.jpg asn1 /path/to/output/directory
+
+# Example: convert ASN1 DER to QR
+> coronacheck-tools convert asn1 /path/to/asn1.der qr /path/to/output/directory
 ```
 
 ## Docker
 ```bash
 # Running the tool through docker is quite easy.
 # Just docker run sikerdebaard/coronacheck-tools:latest
-> docker run --rm --user `id -u` -v /path/to/your/data:/data sikerdebaard/coronacheck-tools:latest dump json /data/qrcode.jpg /data
+# Optional: add --user `id -u` to change the uid/group of output files to the current user
+> docker run --rm -v /path/to/your/data:/data sikerdebaard/coronacheck-tools:latest dump json /data/qrcode.jpg /data
+
+# This is how you can validate your QR code
+> docker run --rm -v /path/to/your/data:/data sikerdebaard/coronacheck-tools:latest validate qr /data/qrcode.jpg
+
+# Example: dumping QR code data to JSON
+> docker run --rm -v /path/to/your/data:/data sikerdebaard/coronacheck-tools:latest dump json /data/qrcode.jpg /data
+
+# Example: validate QR Code
+> docker run --rm -v /path/to/your/data:/data sikerdebaard/coronacheck-tools:latest verify qr /data/qrcode.jpg
+
+# Example: convert QR to ASN1 DER
+> docker run --rm -v /path/to/your/data:/data sikerdebaard/coronacheck-tools:latest convert qr /data/qrcode.jpg asn1 /data
+
+# Example: convert ASN1 DER to QR
+> docker run --rm -v /path/to/your/data:/data sikerdebaard/coronacheck-tools:latest convert asn1 /data/asn1.der qr /data
 ```
 #
 
 # Usage
 
-The tool currently has three commands built-in. Dump is used for converting an image of a qr code to either raw, ASN.1 or json and the asn1spec command is used to print the ASN.1 specification file. Finally there's the encode command which allows you to convert the raw, ASN.1 or json files dumped by this tool back into a QR code image. The tool supports most popular image formats as input/output.
+The tool currently has four commands built-in. Dump, convert, verify and asn1spec.
+
+## dump
+Dump is for converting and image with a QR code to RAW, ASN1 DER or JSON.
 
 ```bash
 > coronacheck-tools dump --help
@@ -52,18 +82,80 @@ GLOBAL OPTIONS
   --ansi                 Force ANSI output
   --no-ansi              Disable ANSI output
   -n (--no-interaction)  Do not ask any interactive question
+```
 
+## convert
+The convert command helps in converting one format into another.
+Supported formats are QR image, RAW, ASN1 DER and JSON. The tools
+can upconvert or downconvert. E.g. QR -> JSON or JSON -> QR, but it can
+also be used for cloning QR -> QR. This is usefull for convert a QR in
+a fuzzy image to a crisp clean QR.
 
-> coronacheck-tools encode --help
+```bash
+> coronacheck-tools convert --help
 
 This is an unofficial tool that is in no way affiliated with CoronaCheck.nl or the Ministry of VWS
 USAGE
-  coronacheck-tools encode <format> <input> <image>
+  coronacheck-tools convert <input-format> <input> <output-format> <output>
 
 ARGUMENTS
-  <format>               Input format. RAW, ASN1, JSON.
+  <input-format>         Input format. QR, RAW, ASN1, JSON.
   <input>                Input file.
-  <image>                Path to an output image file. The QR code will be (over)written to this file.
+  <output-format>        Output format. QR, RAW, ASN1, JSON.
+  <output>               Output directory. Existing files will be overwritten without warning.
+
+GLOBAL OPTIONS
+  -h (--help)            Display this help message
+  -q (--quiet)           Do not output any message
+  -v (--verbose)         Increase the verbosity of messages: "-v" for normal output, "-vv" for more verbose output and "-vvv" for debug
+  -V (--version)         Display this application version
+  --ansi                 Force ANSI output
+  --no-ansi              Disable ANSI output
+  -n (--no-interaction)  Do not ask any interactive question
+
+```
+
+## verify
+This command is used for verifying a QR code. It supports QR image, RAW
+ASN1 DER and JSON as input for verification. This tool uses a thin
+wrapper around the official mobilecore verifier as used by the
+CoronaCheck.nl app.
+
+```bash
+> coronacheck-tools verify --help
+
+This is an unofficial tool that is in no way affiliated with CoronaCheck.nl or the Ministry of VWS
+USAGE
+  coronacheck-tools verify <input-format> <input>
+
+ARGUMENTS
+  <input-format>         Input format. QR, RAW, ASN1, JSON.
+  <input>                Input file.
+
+GLOBAL OPTIONS
+  -h (--help)            Display this help message
+  -q (--quiet)           Do not output any message
+  -v (--verbose)         Increase the verbosity of messages: "-v" for normal output, "-vv" for more verbose output and "-vvv" for debug
+  -V (--version)         Display this application version
+  --ansi                 Force ANSI output
+  --no-ansi              Disable ANSI output
+  -n (--no-interaction)  Do not ask any interactive question
+
+```
+
+## asn1spec
+This tool shows the ASN1 specification as used for
+deserializing the QR code data.
+
+```bash
+> coronacheck-tools asn1spec --help
+
+This is an unofficial tool that is in no way affiliated with CoronaCheck.nl or the Ministry of VWS
+USAGE
+  coronacheck-tools asn1spec [<version>]
+
+ARGUMENTS
+  <version>              Currently supported versions: 2 "2"
 
 GLOBAL OPTIONS
   -h (--help)            Display this help message
@@ -128,7 +220,7 @@ raw_to_qr('/tmp/qrcode.png', rawdata)
 ```
 
 # Example scripts
-You can find some [example python scripts here](https://github.com/Sikerdebaard/coronacheck-tools/tree/main/examples). E.g. how to fuzz some of the QR code fields or how to read the QR from a webcam.
+You can find some [example python scripts here](https://github.com/Sikerdebaard/coronacheck-tools/tree/main/examples). E.g. how to fuzz some of the QR code fields or how to read (and validate) the QR from a webcam.
 
 # License
 
