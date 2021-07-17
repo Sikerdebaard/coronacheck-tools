@@ -9,7 +9,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name='coronacheck-tools',
-    version='1.1.2',
+    version='1.1.3',
     description='Unofficial tool to encode, decode and verify the QR code from CoronaCheck.nl. Not affiliated with CoronaCheck.nl or Ministry of VWS.',  # noqa: E501
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -17,8 +17,10 @@ setup(
     author_email='thomas@tphil.nl',
     url='https://github.com/Sikerdebaard/coronacheck-tools',
     python_requires=">=3.6",
-    packages=find_packages(),  # same as name
-    package_data={'': ['lib/(*.dll|*.so)']},
+    #packages=find_packages(),  # same as name
+    packages=['coronacheck_tools'],
+    #package_data={'': ['lib/(*.dll|*.so)']},
+    include_package_data=True,
     install_requires=[
         'cleo>=0.8.1',
         'base58>=2.1.0',

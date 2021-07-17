@@ -6,17 +6,17 @@ from PIL import Image
 from pyzbar.pyzbar import decode
 
 
-def raw_to_qr(output_file, raw):
-    qr = qrcode.QRCode()
+def raw_to_qr(output_file, raw, reduced_ecc=False):
+    img = raw_to_pil_qr(raw, reduced_ecc)
 
-    qr.add_data(raw)
-    qr.make(fit=True)
-    img = qr.make_image(fill="black", back_color="white")
     img.save(output_file)
 
 
-def raw_to_pil_qr(raw):
-    qr = qrcode.QRCode()
+def raw_to_pil_qr(raw, reduced_ecc=False):
+    if reduced_ecc:
+        qr = qrcode.QRCode(error_correction=qrcode.constants.ERROR_CORRECT_L)
+    else:
+        qr = qrcode.QRCode()
 
     qr.add_data(raw)
     qr.make(fit=True)
@@ -26,8 +26,8 @@ def raw_to_pil_qr(raw):
     return img
 
 
-def raw_to_cv2_qr(raw):
-    return pil_to_cv2(raw_to_pil_qr(raw))
+def raw_to_cv2_qr(raw, reduced_ecc=False):
+    return pil_to_cv2(raw_to_pil_qr(raw, reduced_ecc))
 
 
 def cv2_read_qr(cv2img):

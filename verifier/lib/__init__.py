@@ -59,6 +59,14 @@ def _autodetect():
             libarch = 'armv7'
         elif 'v6' in mach:
             libarch = 'armv6'
+
+            # detect rpi
+            if libos == 'linux':
+                chips = ('BCM2835', )
+                with open('/proc/cpuinfo', 'r') as cpuinfo:
+                    for line in cpuinfo:
+                        if line.startswith('Hardware') and any([chip in line for chip in chips]):
+                            libarch = 'armv6hf'
         elif 'v5' in mach:
             libarch = 'armv5'
         elif '64' in mach:
