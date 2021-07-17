@@ -4,7 +4,7 @@
 
 **This is an unofficial tool that is in no way affiliated with CoronaCheck.nl or the Ministry of VWS. You have been warned!**
 
-coronacheck-tools is a python package and cli tool that allows you to validate, convert and dump the contents of the domestic coronacheck qr code generated at https://coronacheck.nl either through the app or the website. This tool is useful to get some insight into the data stored in these QR Codes or to create your own QR validator.
+coronacheck-tools is a python package and cli tool that allows you to validate, convert and dump the contents of the domestic coronacheck qr code generated at https://coronacheck.nl either through the app or the website. This tool is useful to get some insight into the data stored in these QR Codes, to fuzz the fields or to create your own QR validator.
 
 # Installation
 
