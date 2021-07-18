@@ -1,0 +1,1 @@
+include coronacheck_tools/lib/*.dll coronacheck_tools/lib/*.so
