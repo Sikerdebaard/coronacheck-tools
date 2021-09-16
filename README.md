@@ -50,7 +50,36 @@ coronacheck-tools is a python package and cli tool that allows you to validate, 
 
 # Usage
 
-The tool currently has four commands built-in. Dump, convert, verify and asn1spec.
+The tool currently has four commands built-in. Verify, dump, convert and asn1spec.
+
+## verify
+This command is used for verifying a QR code. It supports a QR image,
+RAW, ASN1 DER and JSON as input for verification. This tool uses a thin
+wrapper around the official mobilecore verifier as used by the
+CoronaCheck.nl app.
+
+```bash
+> coronacheck-tools verify --help
+
+This is an unofficial tool that is in no way affiliated with CoronaCheck.nl or the Ministry of VWS
+USAGE
+  coronacheck-tools verify <input-format> <input>
+
+ARGUMENTS
+  <input-format>         Input format. QR, RAW, ASN1, JSON.
+  <input>                Input file.
+
+GLOBAL OPTIONS
+  -h (--help)            Display this help message
+  -q (--quiet)           Do not output any message
+  -v (--verbose)         Increase the verbosity of messages: "-v" for normal output, "-vv" for more verbose output and "-vvv" for debug
+  -V (--version)         Display this application version
+  --ansi                 Force ANSI output
+  --no-ansi              Disable ANSI output
+  -n (--no-interaction)  Do not ask any interactive question
+
+```
+
 
 ## dump
 Dump is for converting and image with a QR code to RAW, ASN1 DER or JSON.
@@ -98,34 +127,6 @@ ARGUMENTS
   <input>                Input file.
   <output-format>        Output format. QR, RAW, ASN1, JSON.
   <output>               Output directory. Existing files will be overwritten without warning.
-
-GLOBAL OPTIONS
-  -h (--help)            Display this help message
-  -q (--quiet)           Do not output any message
-  -v (--verbose)         Increase the verbosity of messages: "-v" for normal output, "-vv" for more verbose output and "-vvv" for debug
-  -V (--version)         Display this application version
-  --ansi                 Force ANSI output
-  --no-ansi              Disable ANSI output
-  -n (--no-interaction)  Do not ask any interactive question
-
-```
-
-## verify
-This command is used for verifying a QR code. It supports a QR image,
-RAW, ASN1 DER and JSON as input for verification. This tool uses a thin
-wrapper around the official mobilecore verifier as used by the
-CoronaCheck.nl app.
-
-```bash
-> coronacheck-tools verify --help
-
-This is an unofficial tool that is in no way affiliated with CoronaCheck.nl or the Ministry of VWS
-USAGE
-  coronacheck-tools verify <input-format> <input>
-
-ARGUMENTS
-  <input-format>         Input format. QR, RAW, ASN1, JSON.
-  <input>                Input file.
 
 GLOBAL OPTIONS
   -h (--help)            Display this help message
