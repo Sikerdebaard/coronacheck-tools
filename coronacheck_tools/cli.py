@@ -113,6 +113,7 @@ class VerifyCommand(Command):
     verify
         {input-format : Input format. QR, RAW, ASN1, JSON.}
         {input : Input file.}
+        {--e|ehc : Allow verification of European Health Certificates}
     """
 
     def handle(self):
@@ -139,7 +140,7 @@ class VerifyCommand(Command):
             data = data[0]
 
         # Allow international EHC qr codes?
-        allow_international = False
+        allow_international = True if self.option('ehc') else False
         result = validate_raw(data, allow_international=allow_international)
 
         if result[0]:
