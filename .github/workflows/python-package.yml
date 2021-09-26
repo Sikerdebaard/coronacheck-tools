@@ -58,5 +58,6 @@ jobs:
         elif [ "$RUNNER_OS" == "macOS" ]; then
               echo "${{ secrets.V2TESTQR }}" | base64 --decode > test/testdata/qrtest.png
               echo "${{ secrets.V2TESTQRVALID }}" | base64 --decode > test/testdata/qrtest2.png
+        fi
         
         pytest
