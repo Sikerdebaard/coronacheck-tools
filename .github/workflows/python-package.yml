@@ -10,7 +10,7 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
+  test:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -28,8 +28,19 @@ jobs:
         python -m pip install --upgrade pip
         python -m pip install -e .
         python -m pip install -r ./dev_requirements.txt
-        sudo apt-get update
-        sudo apt-get install -y libzbar-dev
+    - name: Install OS specific deps
+      run:   |
+         if [ "$RUNNER_OS" == "Linux" ]; then
+              apt update && apt install libzbar-dev
+         elif [ "$RUNNER_OS" == "Windows" ]; then
+              choco install zbar
+         elif [ "$RUNNER_OS" == "macOS" ]; then
+              brew install zbar
+         else
+              echo "$RUNNER_OS not supported"
+              exit 1
+         fi
+      shell: bash
     - name: Lint with flake8
       run: |
         # stop the build if there are Python syntax errors or undefined names
