@@ -6,6 +6,7 @@ from datetime import datetime, timedelta
 import json
 import base64
 import requests
+import shutil
 
 
 def list_native_libs():
@@ -31,22 +32,25 @@ def validate(raw: str, lib='auto', allow_international=False):
     if len(result['Error'].strip()) > 0:
         return False, result['Error']
 
-    result = json.loads(base64.b64decode(result['Value']))
+    result = result['Details']
 
-    if result['isNLDCC'] == '1':
+    if result['credentialVersion'] == '1':
         # if this field is set to 1 it is actually a european EHC
         result['isEHC'] = True
         result['isDHC'] = False
     else:
         result['isEHC'] = False
         result['isDHC'] = True
-    del result['isNLDCC']
 
     if result['isEHC'] and not allow_international:
         return False, 'Invalid because the QR Code is an international EHC and allow_international=False'
 
     return True, result
 
+
+def clearconfig():
+    confdir = _ensureconfig()
+    shutil.rmtree(confdir)
 
 def _ensureconfig():
     confdir = Path(user_config_dir('coronacheck-tools')) / 'mobilecore'

@@ -66,7 +66,7 @@ def _autodetect():
                 with open('/proc/cpuinfo', 'r') as cpuinfo:
                     for line in cpuinfo:
                         if line.startswith('Hardware') and any([chip in line for chip in chips]):
-                            libarch = 'armv6hf'
+                            libarch = 'armv6l'
         elif 'v5' in mach:
             libarch = 'armv5'
         elif '64' in mach:

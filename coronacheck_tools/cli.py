@@ -3,7 +3,7 @@ from cleo import Command, Application
 
 from coronacheck_tools.certificate_versions.v2 import v2_asn1_specs
 from coronacheck_tools.clitools import parse_input, write_output,  convert, VALID_FORMATS
-from coronacheck_tools.verification.verifier import validate_raw
+from coronacheck_tools.verification.verifier import validate_raw, cconfig
 
 import pkg_resources  # part of setuptools
 
@@ -149,12 +149,25 @@ class VerifyCommand(Command):
             self.line(f"<error>Code is invalid</error> {result[1]}")
 
 
+class ClearConfigCommand(Command):
+    """
+    Remove the validators config files. Normally you should not need this command.
+
+    clean
+    """
+
+    def handle(self):
+        cconfig()
+        self.line('Config removed')
+
+
 def main():
     application = Application(name="coronacheck-tools", version=pkg_resources.require("coronacheck-tools")[0].version)
     application.add(DumpCommand())
     application.add(ConvertCommand())
     application.add(VerifyCommand())
     application.add(Asn1SpecCommand())
+    application.add(ClearConfigCommand())
 
     print(AFFILIATE_WARNING)
 

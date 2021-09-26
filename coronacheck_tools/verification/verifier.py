@@ -1,8 +1,18 @@
-from coronacheck_tools.verification.mobilecore import validate as mobilecore_validate
+from coronacheck_tools.verification.mobilecore import validate as mobilecore_validate, clearconfig as mobilecore_clearconfig
 
 # there's only one strategy at the moment
 # mobilecore: a thin wrapper around the mobilecore validator from the coronacheck.nl app
 strategies = ('mobilecore')
+
+
+def cconfig():
+    """
+    Clears the validators configuration. Please use carefully!
+
+    :return: None
+    """
+
+    mobilecore_clearconfig()
 
 
 def validate_raw(raw: str, strategy='mobilecore', *args, **kwargs):

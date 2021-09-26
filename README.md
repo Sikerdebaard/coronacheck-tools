@@ -14,6 +14,10 @@ coronacheck-tools is a python package and cli tool that allows you to validate, 
 ```bash
 # Install the package through pip
 # This package requires python 3.6 or higher
+# Depending on your Operating System you might need to install some extra dependencies.
+# E.g. ubuntu linux: apt install ffmpeg libsm6 libxext6 zbar-tools
+#      OSX: brew install zbar
+#      Windows: choco install zbar
 > pip install coronacheck-tools
 
 # Example: dumping QR code data to JSON
