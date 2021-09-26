@@ -52,7 +52,7 @@ def _autodetect():
     libarch = None
 
     arch = architecture()
-    mach = machine()
+    mach = machine().lower()
 
     if 'arm' in mach:
         if 'v7' in mach:
