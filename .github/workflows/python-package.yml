@@ -28,6 +28,7 @@ jobs:
         python -m pip install --upgrade pip
         python -m pip install -e .
         python -m pip install -r ./dev_requirements.txt
+      shell: bash
     - name: Install OS specific deps
       run:   |
          if [ "$RUNNER_OS" == "Linux" ]; then
@@ -47,6 +48,7 @@ jobs:
         flake8 . --count --select=E9,F63,F7,F82 --show-source --exclude ./venv --statistics
         # exit-zero treats all errors as warnings.
         flake8 . --count --exit-zero --max-complexity=10 --exclude ./venv --max-line-length=160 --statistics
+      shell: bash
     - name: Test with pytest
       run: |
         pwd
@@ -55,3 +57,4 @@ jobs:
         echo -n "${{ secrets.V2TESTQRVALID }}" | base64 --decode --ignore-garbage > test/testdata/qrtest2.png
         
         pytest
+      shell: bash
