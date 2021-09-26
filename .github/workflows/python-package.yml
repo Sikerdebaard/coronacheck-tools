@@ -51,10 +51,13 @@ jobs:
       shell: bash
     - name: Test with pytest
       run: |
-        pwd
-        ls -l
-        echo -n "${{ secrets.V2TESTQR }}" | base64 --decode --ignore-garbage > test/testdata/qrtest.png
-        echo -n "${{ secrets.V2TESTQRVALID }}" | base64 --decode --ignore-garbage > test/testdata/qrtest2.png
-        
+        if [ "$RUNNER_OS" == "macOS" ]; then
+            echo -n "${{ secrets.V2TESTQR }}" | base64 --decode > test/testdata/qrtest.png
+            echo -n "${{ secrets.V2TESTQRVALID }}" | base64 --decode > test/testdata/qrtest2.png
+        else
+            echo -n "${{ secrets.V2TESTQR }}" | base64 --decode --ignore-garbage > test/testdata/qrtest.png
+            echo -n "${{ secrets.V2TESTQRVALID }}" | base64 --decode --ignore-garbage > test/testdata/qrtest2.png
+        fi
+
         pytest
       shell: bash
