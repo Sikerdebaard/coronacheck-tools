@@ -2,6 +2,8 @@
 export TOOL_VER=`cat setup.py | grep version= | python -c "import sys; print(list(sys.stdin)[0].strip()[:-1].split('\'')[1])"`
 export PYTHON_VER=3.7
 
+echo BUILDING VER $TOOL_VER
+
 docker build -t sikerdebaard/coronacheck-tools:$TOOL_VER --build-arg PYTHON=$PYTHON_VER --build-arg VERSION=$TOOL_VER -f docker/Dockerfile.pub .
 docker tag sikerdebaard/coronacheck-tools:$TOOL_VER sikerdebaard/coronacheck-tools:latest
 
