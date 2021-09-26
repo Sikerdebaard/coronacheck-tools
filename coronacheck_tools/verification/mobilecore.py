@@ -56,7 +56,7 @@ def _ensureconfig():
 
     if timestamp_file.exists():
         with open(timestamp_file, 'r') as fh:
-            timestamp = 0
+            timestamp = datetime.utcfromtimestamp(0)
             ts = fh.read()
             if len(ts) >= 0 and ts.isdecimal():
                 timestamp = datetime.utcfromtimestamp(int(ts))
@@ -75,7 +75,7 @@ def _ensureconfig():
     _getpayload(public_keys_url, public_keys_file)
 
     with open(timestamp_file, 'w') as fh:
-        fh.write(datetime.utcnow().timestamp())
+        fh.write(str(datetime.utcnow().timestamp()))
 
     return confdir
 
