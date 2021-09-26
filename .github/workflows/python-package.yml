@@ -49,9 +49,7 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --exclude ./venv --max-line-length=160 --statistics
     - name: Test with pytest
       run: |
-        echo "${{ secrets.V2TESTQR }}" > test/testdata/qrtest.png.b64
-        base64 --decode test/testdata/qrtest.png.b64 > test/testdata/qrtest.png
-        echo "${{ secrets.V2TESTQRVALID }}" > test/testdata/qrtest2.png.b64 
-        base64 --decode test/testdata/qrtest2.png.b64 > test/testdata/qrtest2.png
+        echo "${{ secrets.V2TESTQR }}" | base64 -di test/testdata/qrtest.png.b64 > test/testdata/qrtest.png
+        echo "${{ secrets.V2TESTQRVALID }}" | base64 -di test/testdata/qrtest2.png.b64 > test/testdata/qrtest2.png
         
         pytest
