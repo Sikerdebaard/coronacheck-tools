@@ -54,9 +54,11 @@ jobs:
         if [ "$RUNNER_OS" == "macOS" ]; then
             echo -n "${{ secrets.V2TESTQR }}" | base64 --decode > test/testdata/qrtest.png
             echo -n "${{ secrets.V2TESTQRVALID }}" | base64 --decode > test/testdata/qrtest2.png
+            echo -n "${{ secrets.V2REVOKEDQR }}" | base64 --decode > test/testdata/qrtestrevoked.raw
         else
             echo -n "${{ secrets.V2TESTQR }}" | base64 --decode --ignore-garbage > test/testdata/qrtest.png
             echo -n "${{ secrets.V2TESTQRVALID }}" | base64 --decode --ignore-garbage > test/testdata/qrtest2.png
+            echo -n "${{ secrets.V2REVOKEDQR }}" | base64 --decode --ignore-garbage > test/testdata/qrtestrevoked.raw
         fi
 
         pytest

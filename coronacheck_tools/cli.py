@@ -2,8 +2,10 @@ from pathlib import Path
 from cleo import Command, Application
 
 from coronacheck_tools.certificate_versions.v2 import v2_asn1_specs
-from coronacheck_tools.clitools import parse_input, write_output,  convert, VALID_FORMATS
-from coronacheck_tools.verification.verifier import validate_raw, cconfig
+from coronacheck_tools.clitools import deep_get, parse_input, write_output,  convert, VALID_FORMATS
+from coronacheck_tools.verification.verifier import validate_raw, cconfig, readconfig as verifier_readconfig
+
+import json
 
 import pkg_resources  # part of setuptools
 
@@ -164,6 +166,26 @@ class ClearConfigCommand(Command):
         cconfig()
         self.line('Config removed')
 
+class ListConfigCommand(Command):
+    """
+    List the (mobilecore) config.
+
+    config
+        {key? : Only show the config starting at <key>}
+    """
+
+    def handle(self):
+        verifier_config = verifier_readconfig()
+
+        config = {'verifier': verifier_config}
+
+        key = self.argument('key')
+        if key:
+            config = deep_get(config, key)
+
+        print(json.dumps(config, indent=2, sort_keys=True))
+
+
 
 def main():
     application = Application(name="coronacheck-tools", version=pkg_resources.require("coronacheck-tools")[0].version)
@@ -172,6 +194,7 @@ def main():
     application.add(VerifyCommand())
     application.add(Asn1SpecCommand())
     application.add(ClearConfigCommand())
+    application.add(ListConfigCommand())
 
     print(AFFILIATE_WARNING)
 

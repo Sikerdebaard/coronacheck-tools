@@ -9,6 +9,7 @@ TESTQRPATH = 'test/testdata/qrtest.png'
 
 TESTQRINVALIDPATH = 'test/testdata/qrtest.png'
 TESTQRVALIDPATH = 'test/testdata/qrtest2.png'
+TESTQRREVOKEDPATH = 'test/testdata/qrtestrevoked.raw'
 
 VALIDATIONDATA = 'test/testdata/validation.json'
 

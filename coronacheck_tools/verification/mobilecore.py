@@ -48,6 +48,23 @@ def validate(raw: str, lib='auto', allow_international=False):
     return True, result
 
 
+def readconfig():
+    confdir = _ensureconfig()
+
+    conf = {}
+    for config_file in confdir.glob('*.json'):
+        with open(config_file, 'r') as fh:
+            data = fh.read()
+
+        if not data or len(data) == 0:
+            conf[f"{config_file.stem}"] = {}
+            continue
+
+        conf[f"{config_file.stem}"] = json.loads(data)
+
+    return conf
+
+
 def clearconfig():
     confdir = _ensureconfig()
     shutil.rmtree(confdir)

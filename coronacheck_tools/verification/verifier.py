@@ -1,8 +1,19 @@
-from coronacheck_tools.verification.mobilecore import validate as mobilecore_validate, clearconfig as mobilecore_clearconfig
+from coronacheck_tools.verification.mobilecore import validate as mobilecore_validate, clearconfig as mobilecore_clearconfig, \
+    readconfig as mobilecore_readconfig
 
 # there's only one strategy at the moment
 # mobilecore: a thin wrapper around the mobilecore validator from the coronacheck.nl app
 strategies = ('mobilecore')
+
+
+def readconfig():
+    """
+    Reads the config of all verifiers into a dict. Currently only mobilecore is supported.
+
+    :return: dict with config parameters
+    """
+
+    return {'mobilecore': mobilecore_readconfig()}
 
 
 def cconfig():
@@ -31,4 +42,3 @@ def validate_raw(raw: str, strategy='mobilecore', *args, **kwargs):
 
     if strategy == 'mobilecore':
         return mobilecore_validate(raw, *args, **kwargs)
-

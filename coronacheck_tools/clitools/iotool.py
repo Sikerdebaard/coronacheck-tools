@@ -1,7 +1,27 @@
 import json
 import cv2
-import functools
 import numpy as np
+
+
+def deep_get(d, key):
+    result = []
+    if isinstance(d, dict):
+        if key in d:
+            print(d[key])
+            return d[key]
+        else:
+            for k in d.keys():
+                out = deep_get(d[k], key)
+                if out:
+                    return out
+
+    elif isinstance(d, list):
+        for o in d:
+            out = deep_get(o, key)
+            if out:
+                return out
+
+    return result
 
 
 def parse_input(input_format, input_path):
