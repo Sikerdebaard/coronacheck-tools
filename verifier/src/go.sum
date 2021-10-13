@@ -134,10 +134,14 @@ github.com/minvws/nl-covid19-coronacheck-idemix v0.3.2 h1:GnknWOJJ2GGc2/UlZwdHsX
 github.com/minvws/nl-covid19-coronacheck-idemix v0.3.2/go.mod h1:e0YBeFOvJDU5kKCa33dYvMcsf0o5UTnua66ZeCj3XzY=
 github.com/minvws/nl-covid19-coronacheck-idemix v0.4.1 h1:5M7COYvF9TdNGwOruAIWPgCA59vu6i+jAE/l81XEEHQ=
 github.com/minvws/nl-covid19-coronacheck-idemix v0.4.1/go.mod h1:ASGDfdc7kvXJzAG0XQSghiRodwE0iMj4jDPv9/KvgN8=
+github.com/minvws/nl-covid19-coronacheck-idemix v0.5.2 h1:ntywjk+uE+EiSQ+op18ZT/mgJ+/upP4ofpP047qK4Zw=
+github.com/minvws/nl-covid19-coronacheck-idemix v0.5.2/go.mod h1:fRQrkyFm3Lqrg94grIlil9+6j9Xq8cqa+axtu7ld2ps=
 github.com/minvws/nl-covid19-coronacheck-mobile-core v0.0.0-20210626210009-d829ded95dce h1:8JfSb1OEWFHLVLTjWv5UUbfWegfPkVDovW/SxCNsBok=
 github.com/minvws/nl-covid19-coronacheck-mobile-core v0.0.0-20210626210009-d829ded95dce/go.mod h1:psWSpGPXxHtgLUQQEUdFh+sLTR/kns78g8hk2Rs3jIQ=
 github.com/minvws/nl-covid19-coronacheck-mobile-core v0.2.0 h1:6l+wBKtqboH1eJI94x2AtPriS9He5H9Wp7OT9APWuVc=
 github.com/minvws/nl-covid19-coronacheck-mobile-core v0.2.0/go.mod h1:dRbS5NWQubK51AHw9rLz5kMxUlVrT71Vo4iF8n97RoM=
+github.com/minvws/nl-covid19-coronacheck-mobile-core v0.2.1 h1:+2EsYKASPhh4LQqGSQKRhEOXpRy56XfOBlGKqpZICzo=
+github.com/minvws/nl-covid19-coronacheck-mobile-core v0.2.1/go.mod h1:ag9sRCWrFmuzf4wIgxqnWZfUb+hoTO8oOUcC9UD+Edw=
 github.com/mitchellh/cli v1.0.0/go.mod h1:hNIlj7HEI86fIcpObd7a0FcrxTWetlwJDGcceTlRvqc=
 github.com/mitchellh/go-homedir v1.0.0/go.mod h1:SfyaCUpYCn1Vlf4IUYiD9fPX4A5wJrkLzIz1N1q0pr0=
 github.com/mitchellh/go-homedir v1.1.0/go.mod h1:SfyaCUpYCn1Vlf4IUYiD9fPX4A5wJrkLzIz1N1q0pr0=

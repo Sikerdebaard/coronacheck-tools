@@ -135,6 +135,10 @@ class VerifyCommand(Command):
         input_data = parse_input(input_format, input_path)
         data = convert(input_format, input_data, "RAW")
 
+        if not data or len(data) == 0:
+            self.line(f"<error>No QR code detected!</error>")
+            return
+
         if isinstance(data, list):
             # if we have multiple QR codes only verify the first one
             data = data[0]
