@@ -7,7 +7,6 @@ def deep_get(d, key):
     result = []
     if isinstance(d, dict):
         if key in d:
-            print(d[key])
             return d[key]
         else:
             for k in d.keys():
