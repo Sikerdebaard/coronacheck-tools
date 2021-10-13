@@ -9,9 +9,7 @@ clean:
 	rm -rf ./lib/*.h
 
 pibuild:
-	cd src
-	make
-	cd ..
+	OUTFILE=dist/verifier-linux-armv6l.so $(MAKE) -C src
 	mv src/dist/* lib/
 
 
