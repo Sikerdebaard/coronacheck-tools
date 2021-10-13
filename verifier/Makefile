@@ -11,6 +11,7 @@ clean:
 pibuild:
 	cd src
 	make
+	cd ..
 	mv src/dist/* lib/
 
 
