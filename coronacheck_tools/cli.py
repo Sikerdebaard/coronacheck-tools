@@ -189,11 +189,11 @@ class ListConfigCommand(Command):
 
 class CheckDenylistCommand(Command):
     """
-    Check if a QR code is on the proof identifier denylist or print the denylist if no parameters are given.
+    Lists all entries on the deny list and optionally checks if a given QR code is on the denylist.
 
     denylist
-        {input-format? : Input format}
-        {input? : Input QR code data}
+        {input-format? : Optional input format (must be combined with <input>)}
+        {input? : Optional input QR code data (must be combined with <input-format>)}
     """
 
     def handle(self):
