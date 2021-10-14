@@ -17,7 +17,7 @@ def build_tester(command):
     application = Application()
     application.add(ConvertCommand())
     application.add(VerifyCommand())
-    application.add(CheckDenylistCommand())
+    #application.add(CheckDenylistCommand())
 
     command = application.find(command)
     command_tester = CommandTester(command)
