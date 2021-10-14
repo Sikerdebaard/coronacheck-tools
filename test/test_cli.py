@@ -77,15 +77,15 @@ def test_cli_verify_valid():
     assert 'Code is valid' in output
 
 
-# def test_cli_denylist_present():
-#     tester = build_tester('denylist')
-#
-#     tester.execute(f"RAW {TESTQRREVOKEDPATH}")
-#     output = tester.io.fetch_output()
-#
-#     assert 'QR Code present in proof identifier denylist' in output
-#
-#
+def test_cli_denylist_present():
+    tester = build_tester('denylist')
+
+    tester.execute(f"RAW {TESTQRREVOKEDPATH}")
+    output = tester.io.fetch_output()
+
+    assert 'QR Code present in proof identifier denylist' in output
+
+
 # def test_cli_denylist_not_present():
 #     tester = build_tester('denylist')
 #
