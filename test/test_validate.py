@@ -41,3 +41,11 @@ def test_denylist_present():
 
     assert p in blacklist
 
+
+def test_denylist_not_present():
+    data = decode_qr(TESTQRVALIDPATH, 'DICT')[0]
+
+    blacklist = denylist()
+    p = proof(data)
+
+    assert p not in blacklist
