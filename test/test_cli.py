@@ -17,7 +17,7 @@ def build_tester(command):
     application = Application()
     application.add(ConvertCommand())
     application.add(VerifyCommand())
-    #application.add(CheckDenylistCommand())
+    application.add(CheckDenylistCommand())
 
     command = application.find(command)
     command_tester = CommandTester(command)
@@ -77,20 +77,20 @@ def test_cli_verify_valid():
     assert 'Code is valid' in output
 
 
-# def test_cli_denylist_present():
-#     tester = build_tester('denylist')
-#
-#     tester.execute(f"RAW {TESTQRREVOKEDPATH}")
-#     output = tester.io.fetch_output()
-#
-#     assert 'QR Code present in proof identifier denylist' in output
+def test_cli_denylist_present():
+    tester = build_tester('denylist')
+
+    tester.execute(f"RAW {TESTQRREVOKEDPATH}")
+    output = tester.io.fetch_output()
+
+    assert 'QR Code present in proof identifier denylist' in output
 
 
-# def test_cli_denylist_not_present():
-#     tester = build_tester('denylist')
-#
-#     tester.execute(f"QR {TESTQRVALIDPATH}")
-#     output = tester.io.fetch_output()
-#
-#     assert 'QR Code not present in proof identifier denylist' in output
+def test_cli_denylist_not_present():
+    tester = build_tester('denylist')
+
+    tester.execute(f"QR {TESTQRVALIDPATH}")
+    output = tester.io.fetch_output()
+
+    assert 'QR Code not present in proof identifier denylist' in output
 

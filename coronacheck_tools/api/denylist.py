@@ -1,7 +1,6 @@
 from coronacheck_tools.clitools import deep_get
 from coronacheck_tools.verification.verifier import readconfig
 
-#import hashlib
 from cryptography.hazmat.primitives import hashes
 import base64
 
