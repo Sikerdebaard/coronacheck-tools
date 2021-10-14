@@ -61,5 +61,5 @@ jobs:
             echo -n "${{ secrets.V2REVOKEDQR }}" | base64 --decode --ignore-garbage > test/testdata/qrtestrevoked.raw
         fi
 
-        pytest -vv --showlocals --full-trace
+        gdb --args pytest -vv --showlocals --full-trace
       shell: bash
