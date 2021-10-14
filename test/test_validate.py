@@ -1,6 +1,8 @@
 from test.common import TESTQRINVALIDPATH, TESTQRVALIDPATH, TESTQRREVOKEDPATH
 from coronacheck_tools import decode_qr
 from coronacheck_tools.verification.verifier import validate_raw
+from coronacheck_tools.api.denylist import proof
+
 
 def test_revoked_qr():
     with open(TESTQRREVOKEDPATH, 'r') as fh:
@@ -22,3 +24,10 @@ def test_validate_validqr():
     raw = decode_qr(TESTQRVALIDPATH, 'RAW')[0]
 
     assert validate_raw(raw)[0] == True
+
+
+def test_proof_not_empty():
+    data = decode_qr(TESTQRVALIDPATH, 'DICT')[0]
+
+    assert proof(data)
+

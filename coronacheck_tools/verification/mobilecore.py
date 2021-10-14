@@ -80,7 +80,7 @@ def _ensureconfig():
             timestamp = datetime.utcfromtimestamp(0)
             ts = fh.read()
             if len(ts) >= 0 and ts.isdecimal():
-                timestamp = datetime.utcfromtimestamp(int(ts))
+                timestamp = datetime.utcfromtimestamp(float(ts))
 
         now = datetime.utcnow()
         if timestamp >= now - timedelta(hours=24):
@@ -96,7 +96,7 @@ def _ensureconfig():
     _getpayload(public_keys_url, public_keys_file)
 
     with open(timestamp_file, 'w') as fh:
-        fh.write(str(datetime.utcnow().timestamp()))
+        fh.write(str(int(datetime.utcnow().timestamp())))
 
     return confdir
 

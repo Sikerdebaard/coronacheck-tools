@@ -4,6 +4,7 @@ from cleo import Command, Application
 from coronacheck_tools.certificate_versions.v2 import v2_asn1_specs
 from coronacheck_tools.clitools import deep_get, parse_input, write_output,  convert, VALID_FORMATS
 from coronacheck_tools.verification.verifier import validate_raw, cconfig, readconfig as verifier_readconfig
+from coronacheck_tools.api.denylist import denylist, proof as denylist_proof
 
 import json
 
@@ -186,6 +187,64 @@ class ListConfigCommand(Command):
         print(json.dumps(config, indent=2, sort_keys=True))
 
 
+class CheckDenylistCommand(Command):
+    """
+    Check if a QR code is on the proof identifier denylist or print the denylist if no parameters are given.
+
+    denylist
+        {input-format? : Input format}
+        {input? : Input QR code data}
+    """
+
+    def handle(self):
+        input_format = self.argument('input-format')
+        input_path = self.argument('input')
+
+        if input_format:
+            input_format = input_format.upper().strip()
+        if input_path:
+            input_path = Path(input_path)
+
+        error = False
+        if input_path and input_format not in VALID_FORMATS:
+            self.line(f'<error>Invalid input format: {format} specify one of {", ".join(VALID_FORMATS)}</error>')
+            error = True
+
+        if input_path and not input_path.is_file():
+            self.line(f'<error>Input file does not exist: {input_path}</error>')
+            error = True
+
+        if not (input_path and input_format):
+            input_path = None
+            input_format = None
+
+        if error:
+            return
+
+        blacklist = denylist()
+        print('Denylist:')
+        for k, v in blacklist.items():
+            print(f'  {k} -> {v}')
+        print()
+
+        if input_path:
+            input_data = parse_input(input_format, input_path)
+            data = convert(input_format, input_data, 'JSON')
+
+            if isinstance(data, list) and len(data) > 0:
+                # only grab the first QR
+                data = data[0]
+
+            if not data or len(data) == 0:
+                self.line(f'<error>No valid QR code found in {input_path}</error>')
+            else:
+                proof = denylist_proof(data)
+                print(f'QR proof: {proof}')
+                if proof in blacklist:
+                    self.line(f"<error>QR Code present in proof identifier denylist</error>")
+                else:
+                    self.line(f"<info>QR Code not present in proof identifier denylist</info>")
+
 
 def main():
     application = Application(name="coronacheck-tools", version=pkg_resources.require("coronacheck-tools")[0].version)
@@ -195,6 +254,7 @@ def main():
     application.add(Asn1SpecCommand())
     application.add(ClearConfigCommand())
     application.add(ListConfigCommand())
+    application.add(CheckDenylistCommand())
 
     print(AFFILIATE_WARNING)
 
