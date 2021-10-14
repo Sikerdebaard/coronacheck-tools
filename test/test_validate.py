@@ -32,20 +32,20 @@ def test_proof_not_empty():
     assert proof(data)
 
 
-# def test_denylist_present():
-#     with open(TESTQRREVOKEDPATH, 'r') as fh:
-#         data = decode_raw(fh.read(), 'DICT')
-#
-#     blacklist = denylist()
-#     p = proof(data)
-#
-#     assert p in blacklist
-#
-#
-# def test_denylist_not_present():
-#     data = decode_qr(TESTQRVALIDPATH, 'DICT')[0]
-#
-#     blacklist = denylist()
-#     p = proof(data)
-#
-#     assert p not in blacklist
+def test_denylist_present():
+    with open(TESTQRREVOKEDPATH, 'r') as fh:
+        data = decode_raw(fh.read(), 'DICT')
+
+    blacklist = denylist()
+    p = proof(data)
+
+    assert p in blacklist
+
+
+def test_denylist_not_present():
+    data = decode_qr(TESTQRVALIDPATH, 'DICT')[0]
+
+    blacklist = denylist()
+    p = proof(data)
+
+    assert p not in blacklist

@@ -23,7 +23,7 @@ def denylist():
 def proof(json):
     c = _int_to_bytes(json['c'])
 
-    sha256 = hashlib.sha256()
+    sha256 = hashlib.new('sha256')
     sha256.update(c)
 
     # take the first 128 bits of the sha256 hash
