@@ -1,4 +1,6 @@
 #!/bin/bash
 python setup.py sdist
+
+read -p "Press enter to continue"
 twine upload --skip-existing dist/*
 
