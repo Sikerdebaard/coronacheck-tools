@@ -12,5 +12,5 @@ def test_config_not_empty():
 
 
 def test_denylist_not_empty():
-    assert denylist()
+    assert len(denylist().keys()) > 0
 
