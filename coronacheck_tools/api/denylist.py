@@ -23,7 +23,9 @@ def denylist():
 def proof(json):
     c = _int_to_bytes(json['c'])
 
-    sha256 = hashlib.new('sha256')
+    # Force using the python built-in function instead of OpenSSL
+    # because the OpenSSL version segfaults on Github Windows runners
+    sha256 = hashlib.new('sha256', usedforsecurity=False)
     sha256.update(c)
 
     # take the first 128 bits of the sha256 hash
