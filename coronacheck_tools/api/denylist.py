@@ -1,7 +1,8 @@
 from coronacheck_tools.clitools import deep_get
 from coronacheck_tools.verification.verifier import readconfig
 
-import hashlib
+#import hashlib
+from cryptography.hazmat.primitives import hashes
 import base64
 
 
@@ -23,14 +24,18 @@ def denylist():
 def proof(json):
     c = _int_to_bytes(json['c'])
 
-    # Force using the python built-in function instead of OpenSSL
-    # because the OpenSSL version segfaults on Github Windows runners
-    sha256 = hashlib.new('sha256', usedforsecurity=False)
+    # # Force using the python built-in function instead of OpenSSL
+    # # because the OpenSSL version segfaults on Github Windows runners
+    # sha256 = hashlib.new('sha256', usedforsecurity=False)
+    # sha256.update(c)
+
+    sha256 = hashes.Hash(hashes.SHA256())
     sha256.update(c)
 
     # take the first 128 bits of the sha256 hash
     # https://github.com/minvws/nl-covid19-coronacheck-idemix/blob/21fbb94f41510fe23356c42c4888520dd03b1acb/verifier/verifier.go#L136
-    proof = sha256.hexdigest()[:32]
+    finalized = sha256.finalize()
+    proof = finalized.hex()[:32]
 
     return proof
 

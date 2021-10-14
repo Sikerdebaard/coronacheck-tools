@@ -33,6 +33,7 @@ setup(
         'numexpr>=2.7.3',
         'appdirs>=1.4.4',
         'requests>=2.25.1',
+        'cryptography>=3.4.7',
     ],
     entry_points={
         'console_scripts': [
