@@ -26,8 +26,8 @@ def test_validate_validqr():
     assert validate_raw(raw)[0] == True
 
 
-# def test_proof_not_empty():
-#     data = decode_qr(TESTQRVALIDPATH, 'DICT')[0]
-#
-#     assert proof(data)
-#
+def test_proof_not_empty():
+    data = decode_qr(TESTQRVALIDPATH, 'DICT')[0]
+
+    assert proof(data)
+
