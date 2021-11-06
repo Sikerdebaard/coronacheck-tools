@@ -1,3 +1,4 @@
+pisync
 build/platform*
 test/testdata/qrtest*
 activate

@@ -130,6 +130,8 @@ github.com/minvws/nl-covid19-coronacheck-hcert v0.1.0 h1:KTnd11xb0zUUYLSWXczx/CV
 github.com/minvws/nl-covid19-coronacheck-hcert v0.1.0/go.mod h1:M0i9JdRx5COvcYTYRyGRfAbBDYV4RM1Ebid4mE8Yf3c=
 github.com/minvws/nl-covid19-coronacheck-hcert v0.4.0 h1:G1oBUqVduThuYejv0BSCxoCsOCnUbsNtJZuiq0rhXkU=
 github.com/minvws/nl-covid19-coronacheck-hcert v0.4.0/go.mod h1:YRtssiwizZYWMVJTFwnL22jRALUmEr5ElmCUCSh9e8Q=
+github.com/minvws/nl-covid19-coronacheck-hcert v0.4.1 h1:L3v4T+E3cuVH4sthSX2+KV8yUOrK31I8XwxoRhwPPn8=
+github.com/minvws/nl-covid19-coronacheck-hcert v0.4.1/go.mod h1:YRtssiwizZYWMVJTFwnL22jRALUmEr5ElmCUCSh9e8Q=
 github.com/minvws/nl-covid19-coronacheck-idemix v0.3.2 h1:GnknWOJJ2GGc2/UlZwdHsXdMXCG+vVn03HwSn5pN4/A=
 github.com/minvws/nl-covid19-coronacheck-idemix v0.3.2/go.mod h1:e0YBeFOvJDU5kKCa33dYvMcsf0o5UTnua66ZeCj3XzY=
 github.com/minvws/nl-covid19-coronacheck-idemix v0.4.1 h1:5M7COYvF9TdNGwOruAIWPgCA59vu6i+jAE/l81XEEHQ=
@@ -142,6 +144,8 @@ github.com/minvws/nl-covid19-coronacheck-mobile-core v0.2.0 h1:6l+wBKtqboH1eJI94
 github.com/minvws/nl-covid19-coronacheck-mobile-core v0.2.0/go.mod h1:dRbS5NWQubK51AHw9rLz5kMxUlVrT71Vo4iF8n97RoM=
 github.com/minvws/nl-covid19-coronacheck-mobile-core v0.2.1 h1:+2EsYKASPhh4LQqGSQKRhEOXpRy56XfOBlGKqpZICzo=
 github.com/minvws/nl-covid19-coronacheck-mobile-core v0.2.1/go.mod h1:ag9sRCWrFmuzf4wIgxqnWZfUb+hoTO8oOUcC9UD+Edw=
+github.com/minvws/nl-covid19-coronacheck-mobile-core v0.2.3 h1:7k7jgysuCVSGH+AAP2r9w66Wc6tlIf6uNFX/TG0dro0=
+github.com/minvws/nl-covid19-coronacheck-mobile-core v0.2.3/go.mod h1:T08OCh50ahbowkye6d9vVOx+oNbWUB/UbCVPQMCGFkQ=
 github.com/mitchellh/cli v1.0.0/go.mod h1:hNIlj7HEI86fIcpObd7a0FcrxTWetlwJDGcceTlRvqc=
 github.com/mitchellh/go-homedir v1.0.0/go.mod h1:SfyaCUpYCn1Vlf4IUYiD9fPX4A5wJrkLzIz1N1q0pr0=
 github.com/mitchellh/go-homedir v1.1.0/go.mod h1:SfyaCUpYCn1Vlf4IUYiD9fPX4A5wJrkLzIz1N1q0pr0=
