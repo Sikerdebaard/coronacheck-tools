@@ -10,6 +10,7 @@ on:
     branches: [ main ]
   schedule:
     - cron: '00 7 * * *'
+    - cron: '00 18 * * *'
 
 jobs:
   test:
@@ -62,6 +63,12 @@ jobs:
             echo -n "${{ secrets.V2TESTQRVALID }}" | base64 --decode --ignore-garbage > test/testdata/qrtest2.png
             echo -n "${{ secrets.V2REVOKEDQR }}" | base64 --decode --ignore-garbage > test/testdata/qrtestrevoked.raw
         fi
-
-        pytest -vv --showlocals # --full-trace
+        
+        #pytest -vv --showlocals # --full-trace
+        
+        # Retry on fail, MacOSX can be moody sometimes due to urrlib3
+        (echo "===== PyTest Attempt: 1 ====" && pytest -vv --showlocals) || \
+        (echo "===== PyTest Attempt: 2 ====" && pytest -vv --showlocals) || \
+        (echo "===== PyTest Attempt: 3 ====" && pytest -vv --showlocals) || \
+        (echo "==== PyTest Failed ====" && exit 1)
       shell: bash
