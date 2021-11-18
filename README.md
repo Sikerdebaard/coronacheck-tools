@@ -250,6 +250,12 @@ validity = validate_raw(rawdata)
 # Example scripts
 You can find some [example python scripts here](https://github.com/Sikerdebaard/coronacheck-tools/tree/main/examples). E.g. how to fuzz some of the QR code fields or how to read (and validate) the QR from a webcam.
 
-# License
+# License and academic use
 
 The program is licensed under the [MIT License](https://github.com/Sikerdebaard/coronacheck-tools/blob/main/LICENSE).
+
+For academic use, use a presistent copy from [![DOI](https://zenodo.org/badge/380317927.svg)](https://zenodo.org/badge/latestdoi/380317927) 
+
+Please cite:
+
+```Phil, T. (2021). Sikerdebaard/coronacheck-tools: v5 (v5) [Computer software]. Zenodo. https://doi.org/10.5281/zenodo.5711213```
