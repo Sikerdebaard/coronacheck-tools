@@ -70,6 +70,8 @@ def clearconfig():
     shutil.rmtree(confdir)
 
 def _ensureconfig():
+    confversion = 'v6'
+
     confdir = Path(user_config_dir('coronacheck-tools')) / 'mobilecore'
     confdir.mkdir(parents=True, exist_ok=True)
 
@@ -88,11 +90,11 @@ def _ensureconfig():
             return confdir
 
     config_file = confdir / 'config.json'
-    config_url = "https://verifier-api.coronacheck.nl/v4/verifier/config"
+    config_url = f"https://verifier-api.coronacheck.nl/{confversion}/verifier/config"
     _getpayload(config_url, config_file)
 
     public_keys_file = confdir / 'public_keys.json'
-    public_keys_url = "https://verifier-api.coronacheck.nl/v4/verifier/public_keys"
+    public_keys_url = f"https://verifier-api.coronacheck.nl/{confversion}/verifier/public_keys"
     _getpayload(public_keys_url, public_keys_file)
 
     with open(timestamp_file, 'w') as fh:
@@ -105,7 +107,13 @@ def _getpayload(url, outfile):
     req = requests.get(url)
     req.raise_for_status
 
-    data = base64.b64decode(req.json()['payload']).decode()
+    req_json = req.json()
+
+    if 'payload' not in req_json:
+        # this happens when there's more than 1 response line
+        req_json = req_json[0]
+
+    data = base64.b64decode(req_json['payload']).decode()
 
     with open(outfile, 'w') as fh:
         fh.write(data)
