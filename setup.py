@@ -25,7 +25,7 @@ setup(
         'cleo>=0.8.1',
         'base58>=2.1.0',
         'pyzbar>=0.1.8',
-        'opencv-python==4.5.3.56',  # afix opencv to a version with raspberry pi compatible wheels
+        'opencv-python==4.8.1.78',  # afix opencv to a version with raspberry pi compatible wheels
         'asn1tools>=0.158.0',
         'qrcode>=6.1',
         'Pillow>=8.2.0',
